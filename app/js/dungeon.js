@@ -1,51 +1,43 @@
-/* 
-	type
-		w = wall
-		d = door
-		h = hole
-		ff = force field
-		bd = barred door
-		p = path
+function Dungeon(name){
 
-	gatepay
-		entrance
-		exit
-		none
+	this.name = name;
+	this.steps = new Array(); //Array
 
-*/
-var dungeonStepObj = {
+	//Methods
+	this.pushStep = pushStep;
+	this.popStep = popStep;
+	
+	this.setName = setName;
+	this.setSteps = setSteps;
 
-	type: 'p',
-	gatepay: 'entrance'
-};
-
-function dungeonStep(type, gatepay){
-
-	var ds = Object.create(dungeonStepObj);
-
-	ds.type = type;
-
-	ds.gateway = gatepay;
-
-	return ds;
+	this.getName = getName;
+	this.getSteps = getSteps;
 }
 
-var dungeon = {
+function pushStep(step){
 
-	name: 'd1',
-	steps: [
+	this.steps.push(step);
+}
 
-		[dungeonStep('d','entrance'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none')],
-		[dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none')],
-		[dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none')],
-		[dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none')],
-		[dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none')],
-		[dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none')],
-		[dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none')],
-		[dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none')],
-		[dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none')],
-		[dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('p', 'none'), dungeonStep('d', 'exit')],
+function popStep(stepId){
 
-	],
+	//TODO
+}
 
-};
+//----------------------------
+
+function setName(){
+
+}
+
+function getName(){
+
+}
+
+function setSteps(){
+
+}
+
+function getSteps(){
+
+}
