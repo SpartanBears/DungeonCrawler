@@ -25,6 +25,7 @@ function DungeonStep(id, x, y, type, gateway){
 	//Methods
 	this.stepEvent = stepEvent;
 	this.stepEventRandom = stepEventRandom;
+	this.stepXYEqualTo = stepXYEqualTo;
 
 	this.setX = setX;
 	this.setY = setY;
@@ -49,7 +50,24 @@ function stepEventRandom(){
 	//EVENTO RANDOM
 }
 
+//Two steps are "equal" if their x and y attributes are equal
+function stepXYEqualTo(step){
+
+	var equal = false;
+
+	if(this.getX() == step.getX() && this.getY() == step.getY()){
+
+		equal = true;
+	}
+
+	return equal;
+}
 //----------------------------
+function setId(id){
+
+	this.id = id;
+}
+
 function setX(x){
 
 	this.x = x;
@@ -68,6 +86,11 @@ function setType(type){
 function setGateway(gateway){
 
 	this.gateway = gateway;
+}
+
+function getId(){
+
+	return this.id;
 }
 
 function getX(){

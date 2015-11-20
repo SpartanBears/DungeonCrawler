@@ -6,3 +6,8 @@ for(var index = 0; index < steps.length; index++){
 
 	d1.pushStep(steps[index]);
 }
+
+var auto = new Automaton("oswo");
+auto.setEnvironment(d1);
+
+console.log(auto);
