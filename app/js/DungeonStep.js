@@ -2,7 +2,7 @@
 	type
 		w = wall
 		d = door
-		h = hole
+		p = pit
 		ff = force field
 		bd = barred door
 		p = path

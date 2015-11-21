@@ -7,16 +7,73 @@ function Automaton(name){
 
 	//Methods
 	this.walk = walk;
+	this.initAutomaton = initAutomaton;
+	this.checkSurroundings = checkSurroundings;
+	this.solveObstacle = solveObstacle;
 
 	this.setCurrentStep = setCurrentStep;
+	this.setPreviousStep = setPreviousStep;
 	this.setEnvironment = setEnvironment;
 
 	this.getCurrentStep = getCurrentStep;
+	this.getPreviousStep = getPreviousStep;
 	this.getEnvironment = getEnvironment;
+}
+
+function initAutomaton(){
+
+	this.setCurrentStep(this.getEnvironment().getEntrance());
+	this.setPreviousStep(this.getEnvironment().getEntrance());
 }
 
 function walk(){
 
+	var surroundings = this.checkSurroundings();
+
+	var found = false;
+
+	var index = 0;
+
+	while(!found && index < surroundings.length){
+
+		switch(surroundings[index].getType()){
+
+			case 'path':
+
+				if(this.getPreviousStep().stepXYEqualTo(surroundings[index])){
+
+					surroundings = surroundings.splice(index, 1);
+
+				}else{
+
+					this.setCurrentStep(surroundings[index]);
+					found = true;
+				}
+
+				index++;
+
+			break;
+
+			case 'door':
+			break;
+
+			case 'barred_door':
+			break;
+
+			case 'pit':
+			break;
+
+			case 'force_field':
+			break;
+
+			default:
+			break;
+		}
+	}
+	
+}
+
+function solveObstacle(){
 
 }
 
@@ -32,11 +89,13 @@ function checkSurroundings(){
 
 	for(var index = 0; index < 4; index++){
 
+		var auxStep;
+
 		switch(index){
 
 			case 0:
 
-				var auxStep = (0, this.getCurrentStep().getX()-1, this.getCurrentStep().getY(), 0);
+				auxStep = new DungeonStep(0, this.getCurrentStep().getX()-1, this.getCurrentStep().getY(), 0, 0);
 
 				if(this.getEnvironment().isStepExists(auxStep)){
 
@@ -47,7 +106,7 @@ function checkSurroundings(){
 
 			case 1:
 
-				var auxStep = (0, this.getCurrentStep().getX(), this.getCurrentStep().getY()+1, 0);
+				auxStep = new DungeonStep(0, this.getCurrentStep().getX(), this.getCurrentStep().getY()+1, 0, 0);
 
 				if(this.getEnvironment().isStepExists(auxStep)){
 
@@ -58,7 +117,7 @@ function checkSurroundings(){
 
 			case 2:
 
-				var auxStep = (0, this.getCurrentStep().getX()+1, this.getCurrentStep().getY(), 0);
+				auxStep = new DungeonStep(0, this.getCurrentStep().getX()+1, this.getCurrentStep().getY(), 0, 0);
 
 				if(this.getEnvironment().isStepExists(auxStep)){
 
@@ -69,7 +128,7 @@ function checkSurroundings(){
 
 			case 3:
 
-				var auxStep = (0, this.getCurrentStep().getX(), this.getCurrentStep().getY()-1, 0);
+				auxStep = new DungeonStep(0, this.getCurrentStep().getX(), this.getCurrentStep().getY()-1, 0, 0);
 
 				if(this.getEnvironment().isStepExists(auxStep)){
 

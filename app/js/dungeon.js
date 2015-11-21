@@ -7,13 +7,15 @@ function Dungeon(name){
 	this.pushStep = pushStep;
 	this.popStep = popStep;
 	this.isStepExists = isStepExists;
-	this.getSize = getSize;
 	
 	this.setName = setName;
 	this.setSteps = setSteps;
 
 	this.getName = getName;
 	this.getSteps = getSteps;
+	this.getSize = getSize;
+	this.getEntrance = getEntrance;
+	this.getStepXY = getStepXY;
 }
 
 function pushStep(step){
@@ -31,16 +33,13 @@ function isStepExists(step){
 
 	var exists = false;
 
-	var found = false;
-
 	var index = 0;
 
-	while(!found || index < this.getSize()){
+	while(!exists && index < this.getSize()){
 
-		if(this.getSteps()[index].getX() == step.getX() || this.getSteps()[index].getY() == step.getY()){
+		if(this.getSteps()[index].stepXYEqualTo(step)){
 
 			exists = true;
-			found = true;
 		}
 
 		index++;
@@ -109,9 +108,32 @@ function getStepXY(x, y){
 
 	var step = null;
 
+	while(!found && index < this.getSize()){
+
+		if(this.getSteps()[index].getX() == x && this.getSteps()[index].getY() == y){
+
+			found = true;
+			step = this.getSteps()[index];
+		}
+
+		index++;
+	}
+
+	return step;
+}
+
+//Returns the step with gateway = entrance
+function getEntrance(){
+
+	var found = false;
+
+	var index = 0;
+
+	var step = null;
+
 	while(!found || index < this.getSize()){
 
-		if(this.getSteps()[index].getX() == x || this.getSteps()[index].getY() == y){
+		if(this.getSteps()[index].getGateway() == 'entrance'){
 
 			found = true;
 			step = this.getSteps()[index];
