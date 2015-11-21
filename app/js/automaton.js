@@ -46,6 +46,7 @@ function walk(){
 
 				}else{
 
+					this.setPreviousStep(this.getCurrentStep());
 					this.setCurrentStep(surroundings[index]);
 					found = true;
 				}

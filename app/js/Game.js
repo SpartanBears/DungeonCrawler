@@ -13,3 +13,7 @@ auto.initAutomaton();
 console.log(auto.getCurrentStep());
 auto.walk();
 console.log(auto.getCurrentStep());
+auto.walk();
+auto.walk();
+auto.walk();
+console.log(auto.getCurrentStep());
