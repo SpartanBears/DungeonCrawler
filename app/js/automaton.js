@@ -28,6 +28,8 @@ function initAutomaton(){
 
 function walk(){
 
+	console.log(this.getCurrentStep().getXYString());
+
 	var surroundings = this.checkSurroundings();
 
 	var found = false;
@@ -51,8 +53,6 @@ function walk(){
 					found = true;
 				}
 
-				index++;
-
 			break;
 
 			case 'door':
@@ -70,6 +70,8 @@ function walk(){
 			default:
 			break;
 		}
+
+		index++;
 	}
 	
 }

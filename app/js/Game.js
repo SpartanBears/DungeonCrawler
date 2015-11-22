@@ -10,10 +10,3 @@ for(var index = 0; index < steps.length; index++){
 var auto = new Automaton("oswo");
 auto.setEnvironment(d1);
 auto.initAutomaton();
-console.log(auto.getCurrentStep());
-auto.walk();
-console.log(auto.getCurrentStep());
-auto.walk();
-auto.walk();
-auto.walk();
-console.log(auto.getCurrentStep());
