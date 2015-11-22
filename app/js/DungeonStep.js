@@ -42,7 +42,7 @@ function DungeonStep(id, x, y, type, gateway){
 	this.getType = getType;
 	this.getGateway = getGateway;
 	this.getXYString = getXYString;
-	this.getChecked = getChecked;
+	this.isChecked = isChecked;
 	this.getDifficulty = getDifficulty;
 
 }
@@ -72,7 +72,7 @@ function stepXYEqualTo(step){
 }
 
 //Returns a boolean indicating if the current step is walkable by the character
-function isWalkable(character){
+function isWalkable(){
 
 	var walkable = true;
 
@@ -187,7 +187,7 @@ function getGateway(){
 	return this.gateway;
 }
 
-function getChecked(){
+function isChecked(){
 
 	return this.checked;
 }

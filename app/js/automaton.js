@@ -10,6 +10,7 @@ function Automaton(name){
 	this.initAutomaton = initAutomaton;
 	this.checkSurroundings = checkSurroundings;
 	this.solveObstacle = solveObstacle;
+	this.selectWalkable = selectWalkable;
 
 	this.setCurrentStep = setCurrentStep;
 	this.setPreviousStep = setPreviousStep;
@@ -22,58 +23,74 @@ function Automaton(name){
 
 function initAutomaton(){
 
+	this.getEnvironment().getEntrance().setChecked(true);
+
 	this.setCurrentStep(this.getEnvironment().getEntrance());
 	this.setPreviousStep(this.getEnvironment().getEntrance());
 }
 
 function walk(){
 
-	console.log(this.getCurrentStep().getXYString());
-
 	var surroundings = this.checkSurroundings();
+
+	var walkableSteps = this.selectWalkable(surroundings);
 
 	var found = false;
 
+	var allChecked = false;
+
 	var index = 0;
 
-	while(!found && index < surroundings.length){
+	var auxStep;
 
-		switch(surroundings[index].getType()){
+	if(walkableSteps.length == 1){
 
-			case 'path':
+		this.setPreviousStep(this.getCurrentStep());
+		this.setCurrentStep(surroundings[0]);
 
-				if(this.getPreviousStep().stepXYEqualTo(surroundings[index])){
+	}else{
 
-					surroundings = surroundings.splice(index, 1);
+		walkableSteps = shuffle(walkableSteps);
 
-				}else{
+		while(!found && index < walkableSteps.length){
 
-					this.setPreviousStep(this.getCurrentStep());
-					this.setCurrentStep(surroundings[index]);
-					found = true;
-				}
+			if(!walkableSteps[index].isChecked() && !allChecked){
 
-			break;
+				this.setPreviousStep(this.getCurrentStep());
+				this.setCurrentStep(surroundings[index]);
 
-			case 'door':
-			break;
+				found = true;
 
-			case 'barred_door':
-			break;
+			}else{
 
-			case 'pit':
-			break;
+				this.setPreviousStep(this.getCurrentStep());
+				this.setCurrentStep(surroundings[index]);
 
-			case 'force_field':
-			break;
+				found = true;
+			}
 
-			default:
-			break;
+			if(index == walkableSteps.length){
+
+				index = 0;
+				allChecked = true;
+			}	
 		}
+	}	
+}
 
-		index++;
+function selectWalkable(surroundings){
+
+	var walkable = new Array();
+
+	for(var index = 0; index < surroundings.length; index++){
+
+		if(surroundings[index].isWalkable(/*this.getCharacter()*/)){
+
+			walkable.push(surroundings[index]);
+		}
 	}
-	
+
+	return walkable;
 }
 
 function solveObstacle(){
@@ -144,6 +161,26 @@ function checkSurroundings(){
 	}
 
 	return surroundings;
+}
+
+function shuffle(array) {
+
+	var currentIndex = array.length, temporaryValue, randomIndex ;
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+
+	return array;
 }
 
 //------------------------------------
