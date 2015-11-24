@@ -42,21 +42,32 @@ function walk(){
 
 	var index = 0;
 
-	var auxStep;
+	while(!found && index < walkableSteps.length){
 
-	if(walkableSteps.length == 1){
+		if(allChecked){
 
-		this.move(walkableSteps[0]);
+			if(walkableSteps.length == 1){
 
-	}else{
+				this.move(walkableSteps[index]);
 
-		walkableSteps = shuffle(walkableSteps);
+				found = true;
+				
+			}else if(!walkableSteps[index].stepXYEqualTo(this.getPreviousStep())){
 
-		while(!found && index < walkableSteps.length){
+				this.move(walkableSteps[index]);
 
-			if(!walkableSteps[index].stepXYEqualTo(this.getPreviousStep()) && !allChecked){
+				found = true;
 
-				if(!walkableSteps[index].isChecked()){
+			}else{
+
+				index++;
+			}
+
+		}else{
+
+			if(walkableSteps[index].stepXYEqualTo(this.getPreviousStep())){
+
+				if(allChecked){
 
 					this.move(walkableSteps[index]);
 
@@ -66,16 +77,28 @@ function walk(){
 
 					index++;
 				}
-				
-			}else if(!allChecked){
-
-				index++;
 
 			}else{
 
-				this.move(walkableSteps[index]);
+				if(walkableSteps[index].isChecked()){
 
-				found = true;
+					if(allChecked){
+
+						this.move(walkableSteps[index]);
+
+						found = true;
+
+					}else{
+
+						index++;
+					}
+
+				}else{
+
+					this.move(walkableSteps[index]);
+
+					found = true;
+				}
 			}
 
 			if(index == walkableSteps.length){
@@ -88,8 +111,6 @@ function walk(){
 }
 
 function move(step){
-
-	console.log("Pre walk /// Previous Step "+this.getPreviousStep().getXYString()+" - Current Step "+this.getCurrentStep().getXYString());
 
 	if(!step.isWalkable()){
 
@@ -108,8 +129,6 @@ function move(step){
 
 		this.getCurrentStep().setChecked(true);
 	}
-
-	console.log("Post walk /// Previous Step "+this.getPreviousStep().getXYString()+" - Current Step "+this.getCurrentStep().getXYString());
 	
 }
 
