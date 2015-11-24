@@ -11,6 +11,7 @@ function Automaton(name){
 	this.checkSurroundings = checkSurroundings;
 	this.solveObstacle = solveObstacle;
 	this.selectWalkable = selectWalkable;
+	this.move = move;
 
 	this.setCurrentStep = setCurrentStep;
 	this.setPreviousStep = setPreviousStep;
@@ -45,8 +46,7 @@ function walk(){
 
 	if(walkableSteps.length == 1){
 
-		this.setPreviousStep(this.getCurrentStep());
-		this.setCurrentStep(surroundings[0]);
+		this.move(walkableSteps[0]);
 
 	}else{
 
@@ -54,17 +54,26 @@ function walk(){
 
 		while(!found && index < walkableSteps.length){
 
-			if(!walkableSteps[index].isChecked() && !allChecked){
+			if(!walkableSteps[index].stepXYEqualTo(this.getPreviousStep()) && !allChecked){
 
-				this.setPreviousStep(this.getCurrentStep());
-				this.setCurrentStep(surroundings[index]);
+				if(!walkableSteps[index].isChecked()){
 
-				found = true;
+					this.move(walkableSteps[index]);
+
+					found = true;
+
+				}else{
+
+					index++;
+				}
+				
+			}else if(!allChecked){
+
+				index++;
 
 			}else{
 
-				this.setPreviousStep(this.getCurrentStep());
-				this.setCurrentStep(surroundings[index]);
+				this.move(walkableSteps[index]);
 
 				found = true;
 			}
@@ -75,7 +84,42 @@ function walk(){
 				allChecked = true;
 			}	
 		}
-	}	
+	}
+}
+
+function move(step){
+
+	console.log("Pre walk /// Previous Step "+this.getPreviousStep().getXYString()+" - Current Step "+this.getCurrentStep().getXYString());
+
+	if(!step.isWalkable()){
+
+		if(this.solveObstacle(step)){
+
+			this.setPreviousStep(this.getCurrentStep());
+			this.setCurrentStep(step);
+
+			this.getCurrentStep().setChecked(true);
+		}
+
+	}else{
+
+		this.setPreviousStep(this.getCurrentStep());
+		this.setCurrentStep(step);
+
+		this.getCurrentStep().setChecked(true);
+	}
+
+	console.log("Post walk /// Previous Step "+this.getPreviousStep().getXYString()+" - Current Step "+this.getCurrentStep().getXYString());
+	
+}
+
+function solveObstacle(){
+
+	var solved = true;
+
+	//TODO
+
+	return solved;
 }
 
 function selectWalkable(surroundings){
@@ -91,10 +135,6 @@ function selectWalkable(surroundings){
 	}
 
 	return walkable;
-}
-
-function solveObstacle(){
-
 }
 
 /*Returns surroundings (4 steps)

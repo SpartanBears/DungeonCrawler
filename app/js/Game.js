@@ -1,4 +1,8 @@
-var steps = [new DungeonStep(0,0,0,"path","entrance"), new DungeonStep(1,1,0,"path","none"), new DungeonStep(2,2,0,"path","none"), new DungeonStep(3,3,0,"path","none"), new DungeonStep(4,4,0,"path","exit")];
+var steps = [
+	new DungeonStep(0,0,0,"path","entrance"), new DungeonStep(1,1,0,"path","none"), new DungeonStep(2,2,0,"path","none"), 
+	new DungeonStep(3,3,0,"path","none"), new DungeonStep(4,4,0,"path","none"), new DungeonStep(5,4,1,"path","none"), new DungeonStep(5,4,2,"path","none"),
+	new DungeonStep(5,5,0,"path","exit")
+];
 
 var d1 = new Dungeon("test");
 
