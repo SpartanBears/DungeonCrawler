@@ -139,6 +139,8 @@ function move(step){
 
 function solveObstacle(step){
 
+	console.log("Obstacle /// Type = " + step.getType() + " / Difficulty " + step.getDifficulty() + " VS Character main stat " + this.getCharacter().getPrimaryStat());
+
 	var solved = false;
 
 	if(this.getCharacter().getPrimaryStat() >= step.getDifficulty()){
@@ -155,6 +157,7 @@ function selectWalkable(surroundings){
 
 	for(var index = 0; index < surroundings.length; index++){
 
+		console.log("Can I walk through this? /// Type " + surroundings[index].getType() + " (" + surroundings[index].isWalkable(this.getCharacter()) + ")" + " Difficulty " + surroundings[index].getDifficulty() + " (" + (this.getCharacter().getPrimaryStat() >= surroundings[index].getDifficulty()) + ")");
 		if(surroundings[index].isWalkable(this.getCharacter())){
 
 			walkable.push(surroundings[index]);

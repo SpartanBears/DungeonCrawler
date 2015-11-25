@@ -21,11 +21,11 @@ function getPrimaryStat(){
 
 function autoPlay(verbose, stepsQ){
 
-	var character = new Character('rogue', 30);
+	var character = new Character('warrior', 15);
 
 	var steps = [
 		new DungeonStep(0,0,0,"path","entrance",30), new DungeonStep(1,1,0,"path","none",30), new DungeonStep(2,2,0,"door","none",30), 
-		new DungeonStep(3,3,0,"path","none",30), new DungeonStep(4,4,0,"path","none",30), new DungeonStep(5,4,1,"path","none",30), new DungeonStep(5,4,2,"path","none",30),
+		new DungeonStep(3,3,0,"path","none",30), new DungeonStep(4,4,0,"path","none",30), new DungeonStep(5,4,1,"barred_door","none",30), new DungeonStep(5,4,2,"path","none",30),
 		new DungeonStep(5,5,0,"path","exit",30),
 	];
 

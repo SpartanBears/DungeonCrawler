@@ -31,6 +31,7 @@ function DungeonStep(id, x, y, type, gateway, difficulty){
 	this.isObstacle = isObstacle;
 	this.stepXYEqualTo = stepXYEqualTo;
 
+	this.setId = setId;
 	this.setX = setX;
 	this.setY = setY;
 	this.setType = setType;
@@ -38,6 +39,7 @@ function DungeonStep(id, x, y, type, gateway, difficulty){
 	this.setChecked = setChecked;
 	this.setDifficulty = setDifficulty;
 
+	this.getId = getId;
 	this.getX = getX;
 	this.getY = getY;
 	this.getType = getType;
