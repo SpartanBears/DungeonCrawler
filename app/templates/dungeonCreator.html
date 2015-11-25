@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+
+<div id="DunCreator">
+		<p>Nombre:</p>
+		<input id="nombre" type="text" name="nombre">
+		<input id="gen" type="submit" value="generar" onclick="(getCodigo())">
+		<br>
+		<p>Y:</p>
+		<input id="y" type="text" name="y">
+		<br>
+		<p>X:</p>
+		<input id="x" type="text" name="x">
+
+		<input id="subs" type="submit" value="Submit">
+
+</div>
+<br><br><br><br><br><br>
+		<div id="spanes" style = " height=300px; width=300px">
+		</div>
+
+
+		
+
+	<script type="text/javascript">
+
+		var span = "";
+		var xy = 15;
+
+		var wallColor = "rgb(0, 0, 0)";
+		var pitColor = "rgb(255, 255, 0)";
+		var ffColor = "rgb(255, 0, 0)";
+		var bdColor = "rgb(0, 0, 255)";
+		var doorColor = "rgb(0, 85, 255)";
+		var pathColor = "rgb(0, 255, 213)";
+
+		var iniColor = "rgb(255, 255, 255)";
+		var finColor = "rgb(0, 255, 213)";
+
+		var pos = new Array();
+
+		$( "#subs" ).click(function() {
+
+			var x = 0;
+			var y = 0;
+
+			/* 
+				type
+					w = wall
+					d = door
+					p = pit
+					ff = force field
+					bd = barred door
+					p = path
+
+				gateway
+					entrance
+					exit
+					none
+
+			*/
+
+			
+
+			x = $("#x").val();
+			y = $("#y").val();
+
+			for(var cont=0; cont<y; cont++){
+
+				for(var index=0; index<x; index++){
+
+					span = '<span class="hoa" id="'+(cont+index)+'" style="position:fixed; margin-top: '+(xy+1)*cont+'px; margin-left: '+(xy+1)*index+'px; height: '+xy+'px; width: '+xy+'px; background: '+wallColor+';" onclick=(changeColor(this)) ></span>';
+					$( "#spanes" ).append(span);
+
+					pos.push({
+						posx: ""+cont,
+						posy: ""+index
+					});
+
+					// console.log(pos[0].x);
+
+				}
+
+			}
+
+			var btn = "<button ></button>";
+
+			$( "#spanes" ).append(btn);
+		});
+
+
+		function changeColor(spn){
+			console.log("hola "+$(spn).css("background-color"));
+
+			 if($(spn).css("background-color")==wallColor){
+
+			 	// console.log("amar"+$(spn).css("background-color"));
+			 	$(spn).css("background-color","yellow");
+
+			 }else if($(spn).css("background-color")==pitColor){
+
+			 	// console.log("rojo"+$(spn).css("background-color"));
+			 	$(spn).css("background-color","red");
+
+			 }else if($(spn).css("background-color")==ffColor){
+
+			 	// console.log("azul"+$(spn).css("background-color"));
+			 	$(spn).css("background-color","blue");
+
+			 }else if($(spn).css("background-color")==bdColor){
+			 	// console.log("negro"+$(spn).css("background-color"));
+			 	$(spn).css("background-color","black");
+
+			 }else if($(spn).css("background-color")==doorColor){
+			 	// console.log("negro"+$(spn).css("background-color"));
+			 	$(spn).css("background-color","black");
+
+			 }else if($(spn).css("background-color")==pathColor){
+			 	// console.log("negro"+$(spn).css("background-color"));
+			 	$(spn).css("background-color","black");
+
+			 }else if($(spn).css("background-color")==iniColor){
+			 	// console.log("negro"+$(spn).css("background-color"));
+			 	$(spn).css("background-color","black");
+			 }else if($(spn).css("background-color")==finColor){
+			 	// console.log("negro"+$(spn).css("background-color"));
+			 	$(spn).css("background-color","black");
+			 }
+		}
+
+
+		function getCodigo(){
+
+			var idCont=0;
+			var dungeon = "new dungeon("+$("#nombre").val()+")";
+
+			$("span").each(function(){
+
+				// console.log(pos[0].posx);
+				dungeon += "new DungeonStep("+idCont+","+pos[idCont].posx+","+pos[idCont].posy+",";
+
+				if($(this).css("background-color")==wallColor){
+
+				 	dungeon+= "w"; 
+
+				 }else if($(this).css("background-color")==pitColor){
+
+				 	dungeon+= "p";
+
+				 }else if($(this).css("background-color")==ffColor){
+
+				 	dungeon+= "ff";
+
+				 }else if($(this).css("background-color")==bdColor){
+
+				 	dungeon+= "bd";
+
+				 }else if($(this).css("background-color")==doorColor){
+
+				 	dungeon+= "d";
+
+				 }else if($(this).css("background-color")==pathColor){
+
+				 	dungeon+= "p";
+
+				 }else{
+
+				 	dungeon+= "w"; 
+
+				 }
+
+				 dungeon+= ",";
+
+				 if($(this).css("background-color")==iniColor){
+
+				 	dungeon+= "entrance";
+
+				 }else if($(this).css("background-color")==finColor){
+
+				 	dungeon+= "exit";
+
+				 }else{
+				 	dungeon+= "none";
+				 }
+
+				 dungeon+= ");";
+
+				 idCont++;
+
+			});
+
+			console.log(dungeon);
+
+		}
+
+
+		// $( ".hoa" ).on( "click", "tr", function() {
+		 	
+		// 	console.log("hola "+$(this).css("background-color"));
+
+		// 	 if($(this).css("background-color")=="rgb(0, 0, 0)"){
+
+		// 	 	console.log("amar"+$(this).css("background-color"));
+		// 	 	$(this).css("background-color","yellow");
+
+		// 	 }else if($(this).css("background-color")=="rgb(255, 255, 0)"){
+
+		// 	 	console.log("rojo"+$(this).css("background-color"));
+		// 	 	$(this).css("background-color","red");
+
+		// 	 }else if($(this).css("background-color")=="rgb(255, 0, 0)"){
+
+		// 	 	console.log("azul"+$(this).css("background-color"));
+		// 	 	$(this).css("background-color","blue");
+
+		// 	 }else if($(this).css("background-color")=="rgb(0, 0, 255)"){
+		// 	 	console.log("negro"+$(this).css("background-color"));
+		// 	 	$(this).css("background-color","black");
+		// 	 }
+
+
+		// });
+	</script>
+
+</body>
+</html>
