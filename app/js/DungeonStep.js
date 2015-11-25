@@ -28,6 +28,7 @@ function DungeonStep(id, x, y, type, gateway){
 	this.stepEvent = stepEvent;
 	this.stepEventRandom = stepEventRandom;
 	this.isWalkable = isWalkable;
+	this.isObstacle = isObstacle;
 	this.stepXYEqualTo = stepXYEqualTo;
 
 	this.setX = setX;
@@ -72,52 +73,48 @@ function stepXYEqualTo(step){
 }
 
 //Returns a boolean indicating if the current step is walkable by the character
-function isWalkable(){
+function isWalkable(character){
 
-	var walkable = true;
+	var walkable = false;
 
 	switch(this.getType()){
 
-		case 'wall':
+		case 'path':
 
-			walkable = false;
+			walkable = true;
 
 		break;
 
 		case 'pit':
 
-			if(character.getJob() != 'rogue'){
+			if(character.getJob() == 'rogue'){
 
-				walkable = false;
+				walkable = true;
 			}
 
 		break;
 
 		case 'force_field':
 
-			if(character.getJob() != 'mage'){
+			if(character.getJob() == 'mage'){
 
-				walkable = false;
+				walkable = true;
 			}
 
 		break;
 
 		case 'barred_door':
 
-			if(character.getJob() != 'warrior'){
+			if(character.getJob() == 'warrior'){
 
-				walkable = false;
+				walkable = true;
 			}
 
 		break;
 
 		case 'door':
 
-			if(character.getPrimaryStat() <= this.getDifficulty()){
-
-
-				walkable = false;
-			}	
+			walkable = true;
 
 		break;
 	}
@@ -125,7 +122,17 @@ function isWalkable(){
 	return walkable;
 }
 
+function isObstacle(){
 
+	var obstacle = false;
+
+	if(this.getType() != 'path'){
+
+		obstacle = true;
+	}
+
+	return obstacle;
+}
 //----------------------------
 function setId(id){
 

@@ -1,7 +1,32 @@
+/*TESTING - NOT FINAL CODE*/
+function Character(job, primaryStat){
+
+	this.job = job;
+	this.primaryStat = primaryStat;
+
+	this.getJob = getJob;
+	this.getPrimaryStat = getPrimaryStat;
+}
+
+function getJob(){
+
+	return this.job;
+}
+
+function getPrimaryStat(){
+
+	return this.primaryStat;
+}
+/*TESTING - NOT FINAL CODE*/
+
 function autoPlay(verbose, stepsQ){
 
+	var character = new Character('rogue', 30);
+
+	console.log(character);
+
 	var steps = [
-		new DungeonStep(0,0,0,"path","entrance"), new DungeonStep(1,1,0,"path","none"), new DungeonStep(2,2,0,"path","none"), 
+		new DungeonStep(0,0,0,"path","entrance"), new DungeonStep(1,1,0,"path","none"), new DungeonStep(2,2,0,"door","none"), 
 		new DungeonStep(3,3,0,"path","none"), new DungeonStep(4,4,0,"path","none"), new DungeonStep(5,4,1,"path","none"), new DungeonStep(5,4,2,"path","none"),
 		new DungeonStep(5,5,0,"path","exit"),
 	];
@@ -13,7 +38,7 @@ function autoPlay(verbose, stepsQ){
 		d1.pushStep(steps[index]);
 	}
 
-	var auto = new Automaton("oswo");
+	var auto = new Automaton(character);
 	auto.setEnvironment(d1);
 	auto.initAutomaton();
 
@@ -33,8 +58,6 @@ function autoPlay(verbose, stepsQ){
 			auto.walk();
 
 			content += " -> " + auto.getCurrentStep().getXYString() + "<br />";
-
-			console.log(auto.selectWalkable(auto.checkSurroundings()));
 
 			logEntry.innerHTML = content;
 

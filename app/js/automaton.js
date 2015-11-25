@@ -1,9 +1,10 @@
-function Automaton(name){
+function Automaton(character){
 
-	this.name = name;
+	this.character = character;
 	this.currentStep = new DungeonStep(0,0,0,0,0);
 	this.previousStep = new DungeonStep(0,0,0,0,0);
 	this.environment = new Dungeon("empty");
+	
 
 	//Methods
 	this.walk = walk;
@@ -16,10 +17,12 @@ function Automaton(name){
 	this.setCurrentStep = setCurrentStep;
 	this.setPreviousStep = setPreviousStep;
 	this.setEnvironment = setEnvironment;
+	this.setCharacter = setCharacter;
 
 	this.getCurrentStep = getCurrentStep;
 	this.getPreviousStep = getPreviousStep;
 	this.getEnvironment = getEnvironment;
+	this.getCharacter = getCharacter;
 }
 
 function initAutomaton(){
@@ -112,31 +115,36 @@ function walk(){
 
 function move(step){
 
-	if(!step.isWalkable()){
+	if(step.isWalkable(this.getCharacter())){
 
-		if(this.solveObstacle(step)){
+		if(step.isObstacle()){
+
+			if(this.solveObstacle(step)){
+
+				this.setPreviousStep(this.getCurrentStep());
+				this.setCurrentStep(step);
+
+				this.getCurrentStep().setChecked(true);
+			}
+			
+		}else{
 
 			this.setPreviousStep(this.getCurrentStep());
 			this.setCurrentStep(step);
 
 			this.getCurrentStep().setChecked(true);
 		}
-
-	}else{
-
-		this.setPreviousStep(this.getCurrentStep());
-		this.setCurrentStep(step);
-
-		this.getCurrentStep().setChecked(true);
 	}
-	
 }
 
-function solveObstacle(){
+function solveObstacle(step){
 
-	var solved = true;
+	var solved = false;
 
-	//TODO
+	if(this.getCharacter().getPrimaryStat() >= step.getDifficulty()){
+
+		solved = true;
+	}
 
 	return solved;
 }
@@ -147,7 +155,7 @@ function selectWalkable(surroundings){
 
 	for(var index = 0; index < surroundings.length; index++){
 
-		if(surroundings[index].isWalkable(/*this.getCharacter()*/)){
+		if(surroundings[index].isWalkable(this.getCharacter())){
 
 			walkable.push(surroundings[index]);
 		}
@@ -264,6 +272,11 @@ function setEnvironment(environment){
 	this.environment = environment;
 }
 
+function setCharacter(character){
+
+	this.character = character;
+}
+
 function getName(){
 
 	return this.name;
@@ -282,5 +295,10 @@ function getPreviousStep(step){
 function getEnvironment(){
 
 	return this.environment;
+}
+
+function getCharacter(){
+
+	return this.character;
 }
 
