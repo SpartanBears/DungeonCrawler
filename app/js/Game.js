@@ -24,17 +24,12 @@ function autoPlay(verbose, stepsQ){
 	var character = new Character('rogue', 30);
 
 	var steps = [
-		new DungeonStep(0,0,0,"path","entrance"), new DungeonStep(1,1,0,"path","none"), new DungeonStep(2,2,0,"door","none"), 
-		new DungeonStep(3,3,0,"path","none"), new DungeonStep(4,4,0,"path","none"), new DungeonStep(5,4,1,"path","none"), new DungeonStep(5,4,2,"path","none"),
-		new DungeonStep(5,5,0,"path","exit"),
+		new DungeonStep(0,0,0,"path","entrance",30), new DungeonStep(1,1,0,"path","none",30), new DungeonStep(2,2,0,"door","none",30), 
+		new DungeonStep(3,3,0,"path","none",30), new DungeonStep(4,4,0,"path","none",30), new DungeonStep(5,4,1,"path","none",30), new DungeonStep(5,4,2,"path","none",30),
+		new DungeonStep(5,5,0,"path","exit",30),
 	];
 
-	var d1 = new Dungeon("test");
-
-	for(var index = 0; index < steps.length; index++){
-
-		d1.pushStep(steps[index]);
-	}
+	var d1 = new Dungeon("test", steps);
 
 	var auto = new Automaton(character);
 	auto.setEnvironment(d1);

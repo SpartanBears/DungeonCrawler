@@ -1,11 +1,11 @@
 /* 
 	type
-		w = wall
-		d = door
-		p = pit
-		ff = force field
-		bd = barred door
-		p = path
+		wall
+		door
+		pit
+		force_field
+		barred_door
+		path
 
 	gateway
 		entrance
@@ -14,7 +14,7 @@
 
 */
 
-function DungeonStep(id, x, y, type, gateway){
+function DungeonStep(id, x, y, type, gateway, difficulty){
 	
 	this.id = id;
 	this.x = x;
@@ -22,7 +22,7 @@ function DungeonStep(id, x, y, type, gateway){
 	this.type = type;
 	this.gateway = gateway;
 	this.checked = false;
-	this.difficulty = 30;
+	this.difficulty = difficulty;
 
 	//Methods
 	this.stepEvent = stepEvent;

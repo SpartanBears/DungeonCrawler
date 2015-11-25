@@ -1,7 +1,7 @@
-function Dungeon(name){
+function Dungeon(name, steps){
 
 	this.name = name;
-	this.steps = new Array(); //Array
+	this.steps = steps; //Array
 
 	//Methods
 	this.pushStep = pushStep;
