@@ -13,6 +13,11 @@ function Automaton(character){
 	this.solveObstacle = solveObstacle;
 	this.selectWalkable = selectWalkable;
 	this.move = move;
+	this.fight = fight;
+	this.loot = loot;
+	this.receiveDamage = receiveDamage;
+	this.addStatusAilment = addStatusAilment;
+	this.checkStatusAilments = checkStatusAilments;
 
 	this.setCurrentStep = setCurrentStep;
 	this.setPreviousStep = setPreviousStep;
@@ -31,6 +36,52 @@ function initAutomaton(){
 
 	this.setCurrentStep(this.getEnvironment().getEntrance());
 	this.setPreviousStep(this.getEnvironment().getEntrance());
+}
+
+function fight(enemy){
+
+	switch(enemy.getType()){
+
+		case 'player':
+
+			//TODO
+
+		break;
+
+		case 'npc':
+
+			//TODO
+
+		break;
+
+		case 'monster':
+
+			//TODO
+
+		break;
+	}
+}
+
+function receiveDamage(damage){
+
+	/*reduce damage (armor, stats, job, perks, skills, deity, etc)
+	then apply*/
+
+}
+
+function addStatusAilment(ailment){
+
+	/*receive and apply ailment effect*/
+}
+
+function checkStatusAilments(){
+
+	/*checks ailments duration and applies effects accordingly*/
+}
+
+function loot(items){
+
+	/*add items to its collection from the items array*/
 }
 
 function walk(){
@@ -231,26 +282,6 @@ function checkSurroundings(){
 	}
 
 	return surroundings;
-}
-
-function shuffle(array) {
-
-	var currentIndex = array.length, temporaryValue, randomIndex ;
-
-	// While there remain elements to shuffle...
-	while (0 !== currentIndex) {
-
-		// Pick a remaining element...
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
-
-		// And swap it with the current element.
-		temporaryValue = array[currentIndex];
-		array[currentIndex] = array[randomIndex];
-		array[randomIndex] = temporaryValue;
-	}
-
-	return array;
 }
 
 //------------------------------------
