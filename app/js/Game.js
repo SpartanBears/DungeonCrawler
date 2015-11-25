@@ -23,8 +23,6 @@ function autoPlay(verbose, stepsQ){
 
 	var character = new Character('rogue', 30);
 
-	console.log(character);
-
 	var steps = [
 		new DungeonStep(0,0,0,"path","entrance"), new DungeonStep(1,1,0,"path","none"), new DungeonStep(2,2,0,"door","none"), 
 		new DungeonStep(3,3,0,"path","none"), new DungeonStep(4,4,0,"path","none"), new DungeonStep(5,4,1,"path","none"), new DungeonStep(5,4,2,"path","none"),
