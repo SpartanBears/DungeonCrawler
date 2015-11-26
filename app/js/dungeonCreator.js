@@ -223,6 +223,7 @@ function getCodigo(){
 		}
 
 		var idCont=0;
+		var rowCont = 0;
 		var dungeon = 'var arraySteps = [';
 
 		$(".square").each(function(){
@@ -276,11 +277,22 @@ function getCodigo(){
 				 	dungeon+= gateNone;
 				 }
 
-				 dungeon+= "\", "+difficulty+"), \n";
+				 
+
+				dungeon+= "\", "+difficulty+"),";
+				
+				if(rowCont == 9){
+					dungeon+= "\n";
+					rowCont = 0;
+				}else{
+					rowCont++;
+				}
 
 				
 			
 			}
+
+			console.log(""+dungeon);
 
 			idCont++;
 
