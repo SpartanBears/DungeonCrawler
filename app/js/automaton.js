@@ -209,7 +209,7 @@ function move(step){
 
 function solveObstacle(step){
 
-	console.log("Obstacle /// Type = " + step.getType() + " / Difficulty " + step.getDifficulty() + " VS Character main stat " + this.getCharacter().getPrimaryStat());
+	//console.log("Obstacle /// Type = " + step.getType() + " / Difficulty " + step.getDifficulty() + " VS Character main stat " + this.getCharacter().getPrimaryStat());
 
 	var solved = false;
 
