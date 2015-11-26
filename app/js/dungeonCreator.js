@@ -12,6 +12,9 @@ var iniColor = "rgb(0, 255, 213)";
 var finColor = "rgb(255, 145, 250)";
 var noneColor = "rgb(145, 145, 145)";
 
+var x = 0;
+var y = 0;	
+
 var interfaceColor = [
 	wallColor,
 	pitColor,
@@ -67,10 +70,11 @@ function createSpan() {
 
 	$('#spans').empty();
 
+	
+
 	if(validate($("#x").val()) && validate($("#y").val())){
 
-		var x = 0;
-		var y = 0;
+		
 
 		// console.log($("#x").val() + " - " + $("#y").val());
 		if($("#x").val()>maxX){
@@ -223,60 +227,64 @@ function getCodigo(){
 
 		$(".square").each(function(){
 
-			dungeon += "new DungeonStep("+idCont+","+pos[idCont].posy+","+pos[idCont].posx+",\"";
+			if($(this).css("background-color")!=wallColor){
+				dungeon += "new DungeonStep("+idCont+","+getX(idCont)+","+getY(idCont)+",\"";
 			
-			// console.log("entrando a each "+$(this).css("background-color")+" - "+$("span").size());
+				// console.log("entrando a each "+$(this).css("background-color")+" - "+$("span").size());
 
-			if($(this).css("background-color")==wallColor){
+				if($(this).css("background-color")==wallColor){
 
-			 	dungeon+= tipoWall;
+				 	dungeon+= tipoWall;
 
-			 }else if($(this).css("background-color")==pitColor){
+				 }else if($(this).css("background-color")==pitColor){
 
-			 	dungeon+= tipoPit;
+				 	dungeon+= tipoPit;
 
-			 }else if($(this).css("background-color")==ffColor){
+				 }else if($(this).css("background-color")==ffColor){
 
-			 	dungeon+= tipoFF;
+				 	dungeon+= tipoFF;
 
-			 }else if($(this).css("background-color")==bdColor){
+				 }else if($(this).css("background-color")==bdColor){
 
-			 	dungeon+= tipoBD;
+				 	dungeon+= tipoBD;
 
-			 }else if($(this).css("background-color")==doorColor){
+				 }else if($(this).css("background-color")==doorColor){
 
-			 	dungeon+= tipoDoor;
+				 	dungeon+= tipoDoor;
 
-			 }else if($(this).css("background-color")==pathColor){
+				 }else if($(this).css("background-color")==pathColor){
 
-			 	dungeon+= tipoPath;
+				 	dungeon+= tipoPath;
 
-			 }else{
+				 }else{
 
-			 	dungeon+= tipoDoor; 
+				 	dungeon+= tipoDoor;
 
-			 }
+				 }
 
-			 dungeon+= "\",\"";
+				 dungeon+= "\",\"";
 
-			 if($(this).css("background-color")==iniColor){
+				 if($(this).css("background-color")==iniColor){
 
-			 	dungeon+= gateEntrance;
+				 	dungeon+= gateEntrance;
 
-			 }else if($(this).css("background-color")==finColor){
+				 }else if($(this).css("background-color")==finColor){
 
-			 	dungeon+= gateExit;
+				 	dungeon+= gateExit;
 
-			 }else{
-			 	dungeon+= gateNone;
-			 }
+				 }else{
+				 	dungeon+= gateNone;
+				 }
 
-			 dungeon+= "\", "+difficulty+"),";
+				 dungeon+= "\", "+difficulty+"), \n";
 
-			 idCont++;
+				
+			
+			}
+
+			idCont++;
 
 		});
-
 		dungeon+= ']; var d = new Dungeon("'+$("#name").val()+'", arraySteps);';
 
 		$("#txtArea").empty();
@@ -297,4 +305,12 @@ function validate(txt){
 	}else{
 		return false;
 	}
+}
+
+function getX(idCont){
+	return (idCont%x);
+}
+
+function getY(idCont){
+	return (Math.floor(idCont/x));
 }
