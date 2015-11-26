@@ -1,0 +1,52 @@
+table {
+	
+	table-layout: fixed;
+}
+
+tr {
+
+	border: 1px solid black;
+}
+
+td {
+
+	text-align: center;;
+	border: 1px solid black;
+	width: 30px;
+	height: 30px;
+}
+
+td.currentPos{
+
+	content: url("../resources/images/hero.png");
+}
+
+td.wall{
+
+	background-color: rgb(0, 0, 0);
+}
+
+td.pit{
+
+	background-color: rgb(255, 255, 0);
+}
+
+td.forceField{
+
+	background-color: rgb(255, 0, 0);
+}
+
+td.barredDoor{
+
+	background-color: rgb(0, 0, 255);
+}
+
+td.door{
+
+	background-color: rgb(0, 85, 255);
+}
+
+td.path{
+
+	background-color: rgb(255, 255, 255);
+}
