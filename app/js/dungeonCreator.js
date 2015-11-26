@@ -90,8 +90,9 @@ function createSpan() {
 
 		$("#title").css("display", "inline");
 		$("#spans").show();
-		$("#spans").css("height", x*16);
-		$("#spans").css("width", y*16);
+		$("#spans").css("width", x*16);
+		$("#spans").css("height", y*16);
+
 
 		for(var cont=0; cont<y; cont++){
 
@@ -204,8 +205,18 @@ function getCodigo(){
 	$("#isCopied").css("background-color","white");
 	$("#isCopied").text("ClipBoard: Empty");
 
+	var difficulty = 1;
+
 	if(validate($("#name").val())){
 			// console.log("entrando a getCodigo");
+
+		if(validate($("#diff").val())){
+			if(parseInt($("#diff").val()) <100){
+				difficulty = $("#diff").val();
+			}else{
+				difficulty = 100;
+			}
+		}
 
 		var idCont=0;
 		var dungeon = 'var arraySteps = [';
@@ -260,7 +271,7 @@ function getCodigo(){
 			 	dungeon+= gateNone;
 			 }
 
-			 dungeon+= "\"),";
+			 dungeon+= "\", "+difficulty+"),";
 
 			 idCont++;
 
