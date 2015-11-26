@@ -237,11 +237,11 @@ function selectWalkable(surroundings){
 	return walkable;
 }
 
-/*Returns surroundings (4 steps)
+/*Returns surroundings on INVERTED coord system (4 steps)
 Example
-       1(x,y+1)
-0(x-1,y) (x,y) 2(x+1,y)
-	   3(x,y-1)
+       0(x,y-1)
+3(x-1,y) (x,y) 1(x+1,y)
+	   2(x,y+1)
 	  	*/
 function checkSurroundings(){
 
@@ -253,7 +253,7 @@ function checkSurroundings(){
 
 		switch(index){
 
-			case 0:
+			case 3:
 
 				auxStep = new DungeonStep(0, this.getCurrentStep().getX()-1, this.getCurrentStep().getY(), 0, 0);
 
@@ -264,7 +264,7 @@ function checkSurroundings(){
 
 			break;
 
-			case 1:
+			case 2:
 
 				auxStep = new DungeonStep(0, this.getCurrentStep().getX(), this.getCurrentStep().getY()+1, 0, 0);
 
@@ -275,7 +275,7 @@ function checkSurroundings(){
 				
 			break;
 
-			case 2:
+			case 1:
 
 				auxStep = new DungeonStep(0, this.getCurrentStep().getX()+1, this.getCurrentStep().getY(), 0, 0);
 
@@ -286,7 +286,7 @@ function checkSurroundings(){
 				
 			break;
 
-			case 3:
+			case 0:
 
 				auxStep = new DungeonStep(0, this.getCurrentStep().getX(), this.getCurrentStep().getY()-1, 0, 0);
 
