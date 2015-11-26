@@ -98,30 +98,11 @@ function walk(){
 
 	while(!found && index < walkableSteps.length){
 
-		if(allChecked){
+		if(walkableSteps.length == 1){
 
-			if(walkableSteps.length == 1){
+			if(walkableSteps[index].isObstacle()){
 
-				this.move(walkableSteps[index]);
-
-				found = true;
-				
-			}else if(!walkableSteps[index].stepXYEqualTo(this.getPreviousStep())){
-
-				this.move(walkableSteps[index]);
-
-				found = true;
-
-			}else{
-
-				index++;
-			}
-
-		}else{
-
-			if(walkableSteps[index].stepXYEqualTo(this.getPreviousStep())){
-
-				if(allChecked){
+				if(this.solveObstacle(walkableSteps[index])){
 
 					this.move(walkableSteps[index]);
 
@@ -129,14 +110,25 @@ function walk(){
 
 				}else{
 
-					index++;
+					console.log("STUCK");
+
+					found = true;
 				}
 
 			}else{
 
-				if(walkableSteps[index].isChecked()){
+				this.move(walkableSteps[index]);
 
-					if(allChecked){
+				found = true;
+			}
+			
+		}else if(allChecked){
+
+			if(!walkableSteps[index].stepXYEqualTo(this.getPreviousStep())){
+
+				if(walkableSteps[index].isObstacle()){
+
+					if(this.solveObstacle(walkableSteps[index])){
 
 						this.move(walkableSteps[index]);
 
@@ -153,44 +145,71 @@ function walk(){
 
 					found = true;
 				}
+			}else{
+
+				index++;
 			}
 
-			if(index == walkableSteps.length){
+		}else{
 
-				index = 0;
-				allChecked = true;
-			}	
+			if(walkableSteps[index].isChecked()){
+
+				index++;
+
+			}else if(!walkableSteps[index].stepXYEqualTo(this.getPreviousStep())){
+
+				if(walkableSteps[index].isObstacle()){
+
+					if(this.solveObstacle(walkableSteps[index])){
+
+						this.move(walkableSteps[index]);
+
+						found = true;
+
+					}else{
+
+						index++;
+					}
+
+				}else{
+
+					this.move(walkableSteps[index]);
+
+					found = true;
+				}
+
+			}else{
+
+				index++;
+			}
+		}
+
+		if(index == walkableSteps.length){
+
+			index = 0;
+			allChecked = true;
 		}
 	}
 }
 
 function move(step){
 
-	if(step.isWalkable(this.getCharacter())){
+	if(this.getCurrentStep().getGateway() == 'exit'){
 
-		if(step.isObstacle()){
+		console.log("I refuse to move! This is the fucking exit! Want me to move!? UH!? Well, I want you to FUCKING DIE, but you're not dead, are you? We don't always get what we want you know...");
 
-			if(this.solveObstacle(step)){
+	}else{
 
-				this.setPreviousStep(this.getCurrentStep());
-				this.setCurrentStep(step);
+		this.setPreviousStep(this.getCurrentStep());
+		this.setCurrentStep(step);
 
-				this.getCurrentStep().setChecked(true);
-			}
-			
-		}else{
-
-			this.setPreviousStep(this.getCurrentStep());
-			this.setCurrentStep(step);
-
-			this.getCurrentStep().setChecked(true);
-		}
+		this.getCurrentStep().setChecked(true);
 	}
 }
 
 function solveObstacle(step){
 
-	console.log("Obstacle /// Type = " + step.getType() + " / Difficulty " + step.getDifficulty() + " VS Character main stat " + this.getCharacter().getPrimaryStat());
+	//console.log("Obstacle /// Type = " + step.getType() + " / Difficulty " + step.getDifficulty() + " VS Character main stat " + this.getCharacter().getPrimaryStat());
 
 	var solved = false;
 
@@ -208,7 +227,7 @@ function selectWalkable(surroundings){
 
 	for(var index = 0; index < surroundings.length; index++){
 
-		console.log("Can I walk through this? /// Type " + surroundings[index].getType() + " (" + surroundings[index].isWalkable(this.getCharacter()) + ")" + " Difficulty " + surroundings[index].getDifficulty() + " (" + (this.getCharacter().getPrimaryStat() >= surroundings[index].getDifficulty()) + ")");
+		//console.log("Can I walk through this? /// Type " + surroundings[index].getType() + " (" + surroundings[index].isWalkable(this.getCharacter()) + ")" + " Difficulty " + surroundings[index].getDifficulty() + " (" + (this.getCharacter().getPrimaryStat() >= surroundings[index].getDifficulty()) + ")");
 		if(surroundings[index].isWalkable(this.getCharacter())){
 
 			walkable.push(surroundings[index]);

@@ -21,7 +21,7 @@ function getPrimaryStat(){
 
 function autoPlay(verbose, stepsQ){
 
-	var character = new Character('warrior', 15);
+	var character = new Character('warrior', 30);
 
 	var steps = [
 		new DungeonStep(0,0,0,"path","entrance",30), new DungeonStep(1,1,0,"path","none",30), new DungeonStep(2,2,0,"door","none",30), 
