@@ -1,0 +1,70 @@
+
+.container{
+	width: 100%;
+}
+
+.rows{
+	display:inline-flex;
+}
+
+.input-coords{
+	width: 30px;
+}
+
+.columns{
+	border-radius: 5px;
+	margin-right: 80px;
+	background-color: grey;
+	padding: 5px;
+}
+
+.hide{
+	display:none;
+}
+
+.return{
+	position: fixed;
+	padding-bottom: 10px;
+}
+
+.gridSquare{
+	/*position: absolute;*/
+	margin: 2%;
+/*	height: 300px;
+	width: 300px;*/
+	padding: 10%;
+	/*align-items: center;*/
+	background-color: lightgray;
+	margin-left: 20%;
+	margin-top: 5%;
+}
+
+.square{
+	position:absolute; 
+	height: 15px; 
+	width: 15px;
+	background: rgb(0, 0, 0);
+}
+
+.leyenda{
+	position: fixed;
+	width: 130px;
+	margin-right: 0px;
+	margin-top: 5%;
+}
+
+.lblLeyenda{
+	margin-left: 15%;
+}
+
+.squareLegend{
+	position: fixed;
+	height: 15px;
+	width: 15px;
+
+}
+
+#isCopied{
+	border-radius: 200px 200px 200px 200px;
+	background-color: white;
+}
