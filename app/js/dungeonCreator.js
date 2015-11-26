@@ -97,7 +97,7 @@ function createSpan() {
 
 			for(var index=0; index<x; index++){
 
-				span = '<span class="square" style="margin-top: '+(xy*index)+'px; margin-left: '+(xy*cont)+'px;" onclick=(changeColor(this)) ></span>';
+				span = '<span class="square" style="margin-top: '+(xy*cont)+'px; margin-left: '+(xy*index)+'px;" onclick=(changeColor(this)) ></span>';
 
 				$( "#spans" ).append(span);
 
