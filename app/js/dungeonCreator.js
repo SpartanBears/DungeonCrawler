@@ -210,6 +210,7 @@ function getCodigo(){
 	$("#isCopied").text("ClipBoard: Empty");
 
 	var difficulty = 1;
+	var idRnd = Math.floor((Math.random() * 1000) + 1);
 
 	if(validate($("#name").val())){
 			// console.log("entrando a getCodigo");
@@ -224,7 +225,7 @@ function getCodigo(){
 
 		var idCont=0;
 		var rowCont = 0;
-		var dungeon = 'var arraySteps = [';
+		var dungeon = 'var arraySteps'+idRnd+' = [';
 
 		$(".square").each(function(){
 
@@ -297,7 +298,7 @@ function getCodigo(){
 			idCont++;
 
 		});
-		dungeon+= ']; var d = new Dungeon("'+$("#name").val()+'", arraySteps);';
+		dungeon+= ']; \nvar d = new Dungeon("'+$("#name").val()+'", arraySteps'+idRnd+');';
 
 		$("#txtArea").empty();
 
