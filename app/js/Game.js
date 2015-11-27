@@ -79,24 +79,24 @@ function autoPlayVisual(dungeonIndex, job, level){
 
 		auto.walk();
 
-		updateCharacterPosition(auto.getCurrentStep(), auto.getPreviousStep());
+		updateCharacterPosition(auto.getDirection(), auto.getCurrentStep(), auto.getPreviousStep());
 
 		if(auto.getCurrentStep().getGateway() == 'exit'){
 
 			auto.walk();
 
-			updateCharacterPosition(auto.getCurrentStep(), auto.getPreviousStep());
+			updateCharacterPosition(auto.getDirection(), auto.getCurrentStep(), auto.getPreviousStep());
 
 			enableStartButton();
 
 			clearInterval(run);
 		}
 
-	}, 100);
+	}, 50);
 	
 }
 
-function updateCharacterPosition(currentStep, previousStep){
+function updateCharacterPosition(direction, currentStep, previousStep){
 
 	var previousTdId = previousStep.getY() + "_" + previousStep.getX();
 
@@ -106,14 +106,24 @@ function updateCharacterPosition(currentStep, previousStep){
 
 	var currentTd = document.getElementById(currentTdId);
 
+	currentTd.className = currentTd.className.replace(" currentPos", "");
+	currentTd.className = currentTd.className.replace(" north", "");
+	currentTd.className = currentTd.className.replace(" east", "");
+	currentTd.className = currentTd.className.replace(" south", "");
+	currentTd.className = currentTd.className.replace(" west", "");
+
 	previousTd.className = previousTd.className.replace(" currentPos", "");
+	previousTd.className = previousTd.className.replace(" north", "");
+	previousTd.className = previousTd.className.replace(" east", "");
+	previousTd.className = previousTd.className.replace(" south", "");
+	previousTd.className = previousTd.className.replace(" west", "");
 
 	if(previousTd.className.indexOf("checked") == -1){
 
 		previousTd.className = previousTd.className + " checked";
 	}
 
-	currentTd.className = currentTd.className + " currentPos";
+	currentTd.className = currentTd.className + " currentPos " + direction;
 
 }
 

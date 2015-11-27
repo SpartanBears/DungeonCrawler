@@ -32,6 +32,26 @@ td.currentPos{
 	content: url("../resources/images/hero.png");
 }
 
+td.currentPos.north{
+
+	content: url("../resources/images/north.png");
+}
+
+td.currentPos.east{
+	
+	content: url("../resources/images/east.png");
+}
+
+td.currentPos.south{
+	
+	content: url("../resources/images/south.png");
+}
+
+td.currentPos.west{
+	
+	content: url("../resources/images/west.png");
+}
+
 td.wall{
 
 	background-color: rgb(0, 0, 0);

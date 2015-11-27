@@ -4,6 +4,7 @@ function Automaton(character){
 	this.currentStep = new DungeonStep(0,0,0,0,0);
 	this.previousStep = new DungeonStep(0,0,0,0,0);
 	this.environment = new Dungeon("empty");
+	this.direction = "south";
 	
 
 	//Methods
@@ -18,16 +19,19 @@ function Automaton(character){
 	this.receiveDamage = receiveDamage;
 	this.addStatusAilment = addStatusAilment;
 	this.checkStatusAilments = checkStatusAilments;
+	this.changeDirection = changeDirection;
 
 	this.setCurrentStep = setCurrentStep;
 	this.setPreviousStep = setPreviousStep;
 	this.setEnvironment = setEnvironment;
 	this.setCharacter = setCharacter;
+	this.setDirection = setDirection;
 
 	this.getCurrentStep = getCurrentStep;
 	this.getPreviousStep = getPreviousStep;
 	this.getEnvironment = getEnvironment;
 	this.getCharacter = getCharacter;
+	this.getDirection = getDirection;
 }
 
 function initAutomaton(){
@@ -86,7 +90,7 @@ function loot(items){
 
 function walk(){
 
-	var surroundings = this.checkSurroundings();
+	var surroundings = this.checkSurroundings(this.getDirection());
 
 	var walkableSteps = this.selectWalkable(surroundings);
 
@@ -211,6 +215,8 @@ function move(step){
 
 	if(this.getCurrentStep().getGateway() == 'exit'){
 
+		this.setDirection('south');
+
 		console.log("I refuse to move! This is the fucking exit! Want me to move!? UH!? Well, I want you to FUCKING DIE, but you're not dead, are you? We don't always get what we want you know...");
 
 	}else{
@@ -219,6 +225,8 @@ function move(step){
 		this.setCurrentStep(step);
 
 		this.getCurrentStep().setChecked(true);
+
+		this.changeDirection(this.getPreviousStep(), this.getCurrentStep());
 	}
 }
 
@@ -258,68 +266,141 @@ function selectWalkable(surroundings){
 
 /*Returns surroundings on INVERTED coord system (4 steps)
 Example
-       0(x,y-1)
-3(x-1,y) (x,y) 1(x+1,y)
-	   2(x,y+1)
+       N(x,y-1)
+W(x-1,y) (x,y) E(x+1,y)
+	   S(x,y+1)
+
+	   S [{x:0,y:1},{x:1,y:0},{x:0,y:-1},{x:-1,y:0}]
+	   E [{x:1,y:0},{x:0,y:-1},{x:-1,y:0},{x:0,y:1}]
+	   N [{x:0,y:-1},{x:-1,y:0},{x:0,y:1},{x:1,y:0}]
+	   W [{x:-1,y:0},{x:0,y:1},{x:1,y:0},{x:0,y:-1}]
+
 	  	*/
-function checkSurroundings(){
+function checkSurroundings(direction){
 
 	var surroundings = new Array();
 
-	for(var index = 0; index < 4; index++){
+	switch(direction){
 
-		var auxStep;
+		case 'south':
 
-		switch(index){
+			var checkSecuence = [{x:0,y:1},{x:1,y:0},{x:0,y:-1},{x:-1,y:0}];
 
-			case 3:
+			for(var index = 0; index < checkSecuence.length; index++){
 
-				auxStep = new DungeonStep(0, this.getCurrentStep().getX()-1, this.getCurrentStep().getY(), 0, 0);
-
-				if(this.getEnvironment().isStepExists(auxStep)){
-
-					surroundings.push(this.getEnvironment().getStepXY(this.getCurrentStep().getX()-1, this.getCurrentStep().getY()));
-				}
-
-			break;
-
-			case 2:
-
-				auxStep = new DungeonStep(0, this.getCurrentStep().getX(), this.getCurrentStep().getY()+1, 0, 0);
+				var auxStep = new DungeonStep(0, this.getCurrentStep().getX() + checkSecuence[index].x, this.getCurrentStep().getY() + checkSecuence[index].y, 0, 0);
 
 				if(this.getEnvironment().isStepExists(auxStep)){
 
-					surroundings.push(this.getEnvironment().getStepXY(this.getCurrentStep().getX(), this.getCurrentStep().getY()+1));
+					surroundings.push(this.getEnvironment().getStepXY(this.getCurrentStep().getX() + checkSecuence[index].x, this.getCurrentStep().getY() + checkSecuence[index].y));
 				}
-				
-			break;
+			}
 
-			case 1:
+		break;
 
-				auxStep = new DungeonStep(0, this.getCurrentStep().getX()+1, this.getCurrentStep().getY(), 0, 0);
+		case 'east':
+
+			var checkSecuence = [{x:1,y:0},{x:0,y:-1},{x:-1,y:0},{x:0,y:1}];
+
+			for(var index = 0; index < checkSecuence.length; index++){
+
+				var auxStep = new DungeonStep(0, this.getCurrentStep().getX() + checkSecuence[index].x, this.getCurrentStep().getY() + checkSecuence[index].y, 0, 0);
 
 				if(this.getEnvironment().isStepExists(auxStep)){
 
-					surroundings.push(this.getEnvironment().getStepXY(this.getCurrentStep().getX()+1, this.getCurrentStep().getY()));
+					surroundings.push(this.getEnvironment().getStepXY(this.getCurrentStep().getX() + checkSecuence[index].x, this.getCurrentStep().getY() + checkSecuence[index].y));
 				}
-				
-			break;
+			}
 
-			case 0:
+		break;
 
-				auxStep = new DungeonStep(0, this.getCurrentStep().getX(), this.getCurrentStep().getY()-1, 0, 0);
+		case 'north':
+
+			var checkSecuence = [{x:0,y:-1},{x:-1,y:0},{x:0,y:1},{x:1,y:0}];
+
+			for(var index = 0; index < checkSecuence.length; index++){
+
+				var auxStep = new DungeonStep(0, this.getCurrentStep().getX() + checkSecuence[index].x, this.getCurrentStep().getY() + checkSecuence[index].y, 0, 0);
 
 				if(this.getEnvironment().isStepExists(auxStep)){
 
-					surroundings.push(this.getEnvironment().getStepXY(this.getCurrentStep().getX(), this.getCurrentStep().getY()-1));
+					surroundings.push(this.getEnvironment().getStepXY(this.getCurrentStep().getX() + checkSecuence[index].x, this.getCurrentStep().getY() + checkSecuence[index].y));
 				}
-				
-			break;
-		}
-		
+			}
+
+		break;
+
+		case 'west':
+
+			var checkSecuence = [{x:-1,y:0},{x:0,y:1},{x:1,y:0},{x:0,y:-1}];
+
+			for(var index = 0; index < checkSecuence.length; index++){
+
+				var auxStep = new DungeonStep(0, this.getCurrentStep().getX() + checkSecuence[index].x, this.getCurrentStep().getY() + checkSecuence[index].y, 0, 0);
+
+				if(this.getEnvironment().isStepExists(auxStep)){
+
+					surroundings.push(this.getEnvironment().getStepXY(this.getCurrentStep().getX() + checkSecuence[index].x, this.getCurrentStep().getY() + checkSecuence[index].y));
+				}
+			}
+
+		break;
 	}
 
 	return surroundings;
+}
+
+//Must be called on move()
+function changeDirection(previousStep, currentStep){
+
+	//S,E,N,W
+	var directions = [{x:0,y:1},{x:1,y:0},{x:0,y:-1},{x:-1,y:0}];
+
+	var found = false;
+
+	var index = 0;
+
+	while(!found && index < directions.length){
+
+		if((previousStep.getX() + directions[index].x) == currentStep.getX()
+			&& (previousStep.getY() + directions[index].y) == currentStep.getY()){
+
+			found = true;
+
+			switch(index){
+
+				case 0:
+
+					this.setDirection('south');
+
+				break;
+
+				case 1:
+
+					this.setDirection('east');
+
+				break;
+
+				case 2:
+
+					this.setDirection('north');
+
+				break;
+
+				case 3:
+
+					this.setDirection('west');
+
+				break;
+			}
+
+		}else{
+
+			index++;
+		}
+	}
+
+	console.log(this.getDirection());
 }
 
 //------------------------------------
@@ -349,6 +430,11 @@ function setCharacter(character){
 	this.character = character;
 }
 
+function setDirection(direction){
+
+	this.direction = direction;
+}
+
 function getName(){
 
 	return this.name;
@@ -372,5 +458,10 @@ function getEnvironment(){
 function getCharacter(){
 
 	return this.character;
+}
+
+function getDirection(){
+
+	return this.direction;
 }
 
