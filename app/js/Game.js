@@ -21,27 +21,36 @@ window.onload = function(){
 	var levelSelector = document.createElement('select');
 	levelSelector.id = "levelSelector";
 
+	var speedSelector = document.createElement('select');
+	speedSelector.id = "speedSelector";
+
 	document.body.appendChild(dungeonContainer);
 	document.body.appendChild(dungeonSelector);
 	document.body.appendChild(jobSelector);
 	document.body.appendChild(levelSelector);
+	document.body.appendChild(speedSelector);
 	document.body.appendChild(dungeonStart);
 
 	dungeonSelectorInit();
 	jobSelectorInit();
 	levelSelectorInit();
+	speedSelectorInit();
 
 	
 }
 
 /*TESTING - NOT FINAL CODE*/
-function Character(job, primaryStat){
+function Character(name, job, primaryStat, type){
 
+	this.name = name;
 	this.job = job;
 	this.primaryStat = primaryStat;
+	this.type = type;
 
 	this.getJob = getJob;
 	this.getPrimaryStat = getPrimaryStat;
+	this.getType = getType;
+	this.getName = getName;
 }
 
 function getJob(){
@@ -53,47 +62,66 @@ function getPrimaryStat(){
 
 	return this.primaryStat;
 }
+
+function getType(){
+
+	return this.type;
+}
+
+function getName(){
+
+	return this.name;
+}
 /*TESTING - NOT FINAL CODE*/
 
-function autoPlayVisual(dungeonIndex, job, level){
+function autoPlayVisual(dungeonIndex, job, level, speed){
 
-	var character = new Character(job, level);
+	if(dungeonIndex == -1 || job == -1 || level == -1 || speed == -1){
 
-	var d = dungeonRepo[dungeonIndex];
-	d.uncheckAll();
+		console.log("BAD SELECTION");
+		enableStartButton();
 
-	var stepsSize = getStepsXYSize(d.getSteps());
-	var stepsX = getStepsXSize(stepsSize);
-	var stepsY = getStepsYSize(stepsSize);
+	}else{
 
-	var auto = new Automaton(character);
-	auto.setEnvironment(d);
-	auto.initAutomaton();
+		var character = new Character("test", job, level, 'player');
 
-	dungeonContainer.innerHTML = "";
-	dungeonContainer.appendChild(getVisualDungeon(stepsX, stepsY, d));
+		var d = dungeonRepo[dungeonIndex];
+		d.uncheckAll();
 
-	var run = setInterval(function(){
+		var stepsSize = getStepsXYSize(d.getSteps());
+		var stepsX = getStepsXSize(stepsSize);
+		var stepsY = getStepsYSize(stepsSize);
 
-		running = true;
+		var auto = new Automaton(character);
+		auto.setEnvironment(d);
+		auto.initAutomaton();
 
-		auto.walk();
+		dungeonContainer.innerHTML = "";
+		dungeonContainer.appendChild(getVisualDungeon(stepsX, stepsY, d));
 
-		updateCharacterPosition(auto.getDirection(), auto.getCurrentStep(), auto.getPreviousStep());
+		var run = setInterval(function(){
 
-		if(auto.getCurrentStep().getGateway() == 'exit'){
+			running = true;
 
 			auto.walk();
 
 			updateCharacterPosition(auto.getDirection(), auto.getCurrentStep(), auto.getPreviousStep());
 
-			enableStartButton();
+			auto.getCurrentStep().stepEvent(auto, 'battle', 50);
 
-			clearInterval(run);
-		}
+			if(auto.getCurrentStep().getGateway() == 'exit'){
 
-	}, 50);
-	
+				auto.walk();
+
+				updateCharacterPosition(auto.getDirection(), auto.getCurrentStep(), auto.getPreviousStep());
+
+				enableStartButton();
+
+				clearInterval(run);
+			}
+
+		}, (1000/speed));
+	}
 }
 
 function updateCharacterPosition(direction, currentStep, previousStep){
@@ -210,14 +238,16 @@ function startSelectedDungeon(){
 	var dungeonSelect = document.getElementById("dungeonSelector");
 	var jobSelect = document.getElementById("jobSelector");
 	var levelSelect = document.getElementById("levelSelector");
+	var speedSelect = document.getElementById("speedSelector");
 
 	var dungeon = dungeonSelect.options[dungeonSelect.selectedIndex].value;
 	var job = jobSelect.options[jobSelect.selectedIndex].value;
 	var level = levelSelect.options[levelSelect.selectedIndex].value;
+	var speed = speedSelect.options[speedSelect.selectedIndex].value;
 
 	disableStartButton();
 
-	autoPlayVisual(dungeon, job, level);
+	autoPlayVisual(dungeon, job, level, speed);
 }
 
 function disableStartButton(){
@@ -232,6 +262,12 @@ function enableStartButton(){
 
 function dungeonSelectorInit(){
 
+	var option = document.createElement("option");
+	option.value = -1;
+	option.text = "DUNGEON";
+
+	document.getElementById("dungeonSelector").appendChild(option);
+
 	for(var index = 0; index < dungeonRepo.length; index++){
 
 		var option = document.createElement("option");
@@ -243,6 +279,12 @@ function dungeonSelectorInit(){
 }
 
 function jobSelectorInit(){
+
+	var option = document.createElement("option");
+	option.value = -1;
+	option.text = "JOB";
+
+	document.getElementById("jobSelector").appendChild(option);
 
 	var options = ["warrior", "rogue", "mage"];
 
@@ -258,6 +300,12 @@ function jobSelectorInit(){
 
 function levelSelectorInit(){
 
+	var option = document.createElement("option");
+	option.value = -1;
+	option.text = "LEVEL";
+
+	document.getElementById("levelSelector").appendChild(option);
+
 	for(var index = 1; index <= 10; index++){
 
 		var option = document.createElement("option");
@@ -265,6 +313,24 @@ function levelSelectorInit(){
 		option.text = index*10;
 
 		document.getElementById("levelSelector").appendChild(option);
+	}
+}
+
+function speedSelectorInit(){
+
+	var option = document.createElement("option");
+	option.value = -1;
+	option.text = "SPEED";
+
+	document.getElementById("speedSelector").appendChild(option);
+
+	for(var index = 1; index <= 10; index++){
+
+		var option = document.createElement("option");
+		option.value = index*10;
+		option.text = index*10;
+
+		document.getElementById("speedSelector").appendChild(option);
 	}
 }
 

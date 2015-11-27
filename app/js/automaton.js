@@ -60,10 +60,17 @@ function fight(enemy){
 
 		case 'monster':
 
-			//TODO
+			console.log(this.getCharacter().getName() + " VS " + enemy.getName());
 
 		break;
 	}
+}
+
+function dealDamage(){
+
+	var damage = 0;
+
+	return damage;
 }
 
 function receiveDamage(damage){
@@ -93,6 +100,9 @@ function walk(){
 	var surroundings = this.checkSurroundings(this.getDirection());
 
 	var walkableSteps = this.selectWalkable(surroundings);
+
+	//walkableSteps = sortWalkable(walkableSteps);
+	walkableSteps = shuffle(walkableSteps);
 
 	var found = false;
 
@@ -145,6 +155,7 @@ function walk(){
 							this.move(walkableSteps[0]);
 
 							found = true;
+
 						}else{
 
 							this.move(walkableSteps[index+1]);
@@ -264,16 +275,44 @@ function selectWalkable(surroundings){
 	return walkable;
 }
 
+//Sorts walkable steps, leaving obstacles first in the stack
+function sortWalkable(steps){
+
+	var sortedArray = new Array();
+
+	var sorted = false;
+
+	var index = 0;
+
+	for(var index = 0; index < steps.length; index++){
+
+		if(steps[index].isObstacle()){
+
+			sortedArray.push(steps[index]);
+		}
+	}
+
+	for(var index = 0; index < steps.length; index++){
+
+		if(!steps[index].isObstacle()){
+
+			sortedArray.push(steps[index]);
+		}
+	}
+
+	return sortedArray;
+}
+
 /*Returns surroundings on INVERTED coord system (4 steps)
 Example
        N(x,y-1)
 W(x-1,y) (x,y) E(x+1,y)
 	   S(x,y+1)
 
-	   S [{x:0,y:1},{x:1,y:0},{x:0,y:-1},{x:-1,y:0}]
-	   E [{x:1,y:0},{x:0,y:-1},{x:-1,y:0},{x:0,y:1}]
-	   N [{x:0,y:-1},{x:-1,y:0},{x:0,y:1},{x:1,y:0}]
-	   W [{x:-1,y:0},{x:0,y:1},{x:1,y:0},{x:0,y:-1}]
+	   S [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}]
+	   E [{x:0,y:-1},{x:0,y:1},{x:1,y:0},{x:-1,y:0}]
+	   N [{x:-1,y:0},{x:1,y:0},{x:0,y:-1},{x:0,y:1}]
+	   W [{x:0,y:1},{x:0,y:-1},{x:-1,y:0},{x:1,y:0}]
 
 	  	*/
 function checkSurroundings(direction){
@@ -284,7 +323,7 @@ function checkSurroundings(direction){
 
 		case 'south':
 
-			var checkSecuence = [{x:0,y:1},{x:1,y:0},{x:0,y:-1},{x:-1,y:0}];
+			var checkSecuence = [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}];
 
 			for(var index = 0; index < checkSecuence.length; index++){
 
@@ -300,7 +339,7 @@ function checkSurroundings(direction){
 
 		case 'east':
 
-			var checkSecuence = [{x:1,y:0},{x:0,y:-1},{x:-1,y:0},{x:0,y:1}];
+			var checkSecuence = [{x:0,y:-1},{x:0,y:1},{x:1,y:0},{x:-1,y:0}];
 
 			for(var index = 0; index < checkSecuence.length; index++){
 
@@ -316,7 +355,7 @@ function checkSurroundings(direction){
 
 		case 'north':
 
-			var checkSecuence = [{x:0,y:-1},{x:-1,y:0},{x:0,y:1},{x:1,y:0}];
+			var checkSecuence = [{x:0,y:1},{x:0,y:-1},{x:-1,y:0},{x:1,y:0}];
 
 			for(var index = 0; index < checkSecuence.length; index++){
 
@@ -399,8 +438,6 @@ function changeDirection(previousStep, currentStep){
 			index++;
 		}
 	}
-
-	console.log(this.getDirection());
 }
 
 //------------------------------------

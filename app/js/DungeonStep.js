@@ -50,10 +50,16 @@ function DungeonStep(id, x, y, type, gateway, difficulty){
 
 }
 
-function stepEvent(){
+function stepEvent(automaton, type, frecuency){
 
-	//EVENTO
+	var wachimingo = new Event("battle_test", frecuency, type);
 
+	var randomIndex = Math.floor(Math.random() * 100);
+
+	if(randomIndex <= wachimingo.getFrecuency()){
+
+		wachimingo.execute(automaton);
+	}
 }
 
 function stepEventRandom(){

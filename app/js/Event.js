@@ -1,5 +1,9 @@
 //Contains monster objects
 var monsters = new Array();
+monsters.push(new Character('monstruitoA', 'warrior', 50, 'monster'));
+monsters.push(new Character('monstruitoB', 'warrior', 50, 'monster'));
+monsters.push(new Character('monstruitoC', 'warrior', 50, 'monster'));
+monsters.push(new Character('monstruitoD', 'warrior', 50, 'monster'));
 
 //Contains shrine event objects
 var shrines = new Array();
@@ -78,3 +82,36 @@ function getRandomObject(array){
 
 	return shuffle(array)[randomIndex];
 }
+
+//----------------
+
+function setName(name){
+
+	this.name = name;
+}
+
+function setFrecuency(frecuency){
+
+	this.frecuency = frecuency;
+}
+
+function setType(){
+
+	this.type = type;
+}
+
+function getName(){
+
+	return this.name;
+}
+
+function getFrecuency(){
+
+	return this.frecuency;
+}
+
+function getType(){
+
+	return this.type;
+}
+
