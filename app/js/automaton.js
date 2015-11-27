@@ -96,7 +96,7 @@ function walk(){
 
 	var index = 0;
 
-	while(!found && index < walkableSteps.length){
+	while(!found){
 
 		if(walkableSteps.length == 1){
 
@@ -134,6 +134,20 @@ function walk(){
 
 						found = true;
 
+					}else if(walkableSteps.length == 2){
+
+						if(index == walkableSteps.length-1){
+
+							this.move(walkableSteps[0]);
+
+							found = true;
+						}else{
+
+							this.move(walkableSteps[index+1]);
+
+							found = true;
+						}
+
 					}else{
 
 						index++;
@@ -145,6 +159,7 @@ function walk(){
 
 					found = true;
 				}
+
 			}else{
 
 				index++;
@@ -184,7 +199,7 @@ function walk(){
 			}
 		}
 
-		if(index == walkableSteps.length){
+		if(index >= walkableSteps.length){
 
 			index = 0;
 			allChecked = true;
@@ -214,6 +229,10 @@ function solveObstacle(step){
 	var solved = false;
 
 	if(this.getCharacter().getPrimaryStat() >= step.getDifficulty()){
+
+		solved = true;
+
+	}else if(step.getGateway() == "entrance" || step.getGateway() == "exit"){
 
 		solved = true;
 	}

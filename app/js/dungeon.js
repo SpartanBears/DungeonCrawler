@@ -7,6 +7,7 @@ function Dungeon(name, steps){
 	this.pushStep = pushStep;
 	this.popStep = popStep;
 	this.isStepExists = isStepExists;
+	this.uncheckAll = uncheckAll;
 	
 	this.setName = setName;
 	this.setSteps = setSteps;
@@ -46,6 +47,14 @@ function isStepExists(step){
 	}
 
 	return exists;
+}
+
+function uncheckAll(){
+
+	for(var index = 0; index < this.getSteps().length; index++){
+
+		this.getSteps()[index].setChecked(false);
+	}
 }
 
 //----------------------------

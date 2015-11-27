@@ -14,6 +14,17 @@ td {
 	border: 1px solid black;
 	width: 30px;
 	height: 30px;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+#dungeonContainer{
+
+	width: 400px;
+	max-height: 400px;
+	overflow: auto;
+	float: right;
 }
 
 td.currentPos{
@@ -49,4 +60,19 @@ td.door{
 td.path{
 
 	background-color: rgb(255, 255, 255);
+}
+
+td.entrance{
+
+	background-color: rgb(0, 255, 213) !important;
+}
+
+td.exit{
+
+	background-color: rgb(255, 145, 250) !important;
+}
+
+td.checked{
+
+	border: 2px solid red;
 }

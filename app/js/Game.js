@@ -1,3 +1,39 @@
+window.onload = function(){
+
+	var dungeonContainer = document.createElement('div');
+	dungeonContainer.id = "dungeonContainer";
+
+	var dungeonSelector = document.createElement('select');
+	dungeonSelector.id = "dungeonSelector";
+
+	var dungeonStart = document.createElement('input');
+	dungeonStart.id = "dungeonStart";
+	dungeonStart.setAttribute("type", "button");
+	dungeonStart.value = "Start";
+	dungeonStart.onclick = function(){
+
+		startSelectedDungeon();
+	}
+
+	var jobSelector = document.createElement('select');
+	jobSelector.id = "jobSelector";
+
+	var levelSelector = document.createElement('select');
+	levelSelector.id = "levelSelector";
+
+	document.body.appendChild(dungeonContainer);
+	document.body.appendChild(dungeonSelector);
+	document.body.appendChild(jobSelector);
+	document.body.appendChild(levelSelector);
+	document.body.appendChild(dungeonStart);
+
+	dungeonSelectorInit();
+	jobSelectorInit();
+	levelSelectorInit();
+
+	
+}
+
 /*TESTING - NOT FINAL CODE*/
 function Character(job, primaryStat){
 
@@ -19,15 +55,14 @@ function getPrimaryStat(){
 }
 /*TESTING - NOT FINAL CODE*/
 
-function autoPlayVisual(){
+function autoPlayVisual(dungeonIndex, job, level){
 
-	var dungeonContainer = document.createElement('div');
+	var character = new Character(job, level);
 
-	document.body.insertBefore(dungeonContainer, document.body.childNodes[0]);
+	var d = dungeonRepo[dungeonIndex];
+	d.uncheckAll();
 
-	var character = new Character('mage', 50);
-
-	var stepsSize = getStepsXYSize(arraySteps);
+	var stepsSize = getStepsXYSize(d.getSteps());
 	var stepsX = getStepsXSize(stepsSize);
 	var stepsY = getStepsYSize(stepsSize);
 
@@ -36,32 +71,53 @@ function autoPlayVisual(){
 	auto.initAutomaton();
 
 	dungeonContainer.innerHTML = "";
-	dungeonContainer.appendChild(getVisualXY(stepsX, stepsY, auto.getCurrentStep(), d));
-
-	var drawLast = false;
+	dungeonContainer.appendChild(getVisualDungeon(stepsX, stepsY, d));
 
 	var run = setInterval(function(){
 
+		running = true;
+
 		auto.walk();
 
-		dungeonContainer.innerHTML = "";
-		dungeonContainer.appendChild(getVisualXY(stepsX, stepsY, auto.getCurrentStep(), d));
+		updateCharacterPosition(auto.getCurrentStep(), auto.getPreviousStep());
 
 		if(auto.getCurrentStep().getGateway() == 'exit'){
 
 			auto.walk();
 
-			dungeonContainer.innerHTML = "";
-			dungeonContainer.appendChild(getVisualXY(stepsX, stepsY, auto.getCurrentStep(), d));
+			updateCharacterPosition(auto.getCurrentStep(), auto.getPreviousStep());
+
+			enableStartButton();
 
 			clearInterval(run);
 		}
 
-	}, 250);
+	}, 100);
 	
 }
 
-function getVisualXY(sizeX, sizeY, step, dungeon){
+function updateCharacterPosition(currentStep, previousStep){
+
+	var previousTdId = previousStep.getY() + "_" + previousStep.getX();
+
+	var currentTdId = currentStep.getY() + "_" + currentStep.getX();
+
+	var previousTd = document.getElementById(previousTdId);
+
+	var currentTd = document.getElementById(currentTdId);
+
+	previousTd.className = previousTd.className.replace(" currentPos", "");
+
+	if(previousTd.className.indexOf("checked") == -1){
+
+		previousTd.className = previousTd.className + " checked";
+	}
+
+	currentTd.className = currentTd.className + " currentPos";
+
+}
+
+function getVisualDungeon(sizeX, sizeY, dungeon){
 
 	var table = document.createElement('table');
 
@@ -80,44 +136,54 @@ function getVisualXY(sizeX, sizeY, step, dungeon){
 
 			if(dungeon.isStepExists(auxStep)){
 
+				switch(dungeon.getStepXY(col, row).getGateway()){
+
+					case 'entrance':
+
+						td.className = "entrance";
+
+					break;
+
+					case 'exit':
+
+						td.className = "exit";
+
+					break;
+				}
+
 				switch(dungeon.getStepXY(col, row).getType()){
 
 					case 'path':
 
-						td.className = "path";
+						td.className = td.className + " path";
 
 					break;
 
 					case 'pit':
 
-						td.className = "pit";
+						td.className = td.className + " pit";
 
 					break;
 
 					case 'force_field':
 
-						td.className = "forceField";
+						td.className = td.className + " forceField";
 
 					break;
 
 					case 'barred_door':
 
-						td.className = "barredDoor";
+						td.className = td.className + " barredDoor";
 
 					break;
 
 					case 'door':
 
-						td.className = "door";
+						td.className = td.className + " door";
 
 					break;
 				}
 
-			}
-
-			if(step.getX() == col && step.getY() == row){
-
-				td.className = td.className + " currentPos";
 			}
 
 			tr.appendChild(td);
@@ -129,7 +195,69 @@ function getVisualXY(sizeX, sizeY, step, dungeon){
 	return table;
 }
 
-//Returns 
+function startSelectedDungeon(){
+
+	var dungeonSelect = document.getElementById("dungeonSelector");
+	var jobSelect = document.getElementById("jobSelector");
+	var levelSelect = document.getElementById("levelSelector");
+
+	var dungeon = dungeonSelect.options[dungeonSelect.selectedIndex].value;
+	var job = jobSelect.options[jobSelect.selectedIndex].value;
+	var level = levelSelect.options[levelSelect.selectedIndex].value;
+
+	disableStartButton();
+
+	autoPlayVisual(dungeon, job, level);
+}
+
+function disableStartButton(){
+
+	document.getElementById("dungeonStart").disabled = true;
+}
+
+function enableStartButton(){
+
+	document.getElementById("dungeonStart").disabled = false;
+}
+
+function dungeonSelectorInit(){
+
+	for(var index = 0; index < dungeonRepo.length; index++){
+
+		var option = document.createElement("option");
+		option.value = index;
+		option.text = dungeonRepo[index].getName() + " - difficulty: " + dungeonRepo[index].getSteps()[0].getDifficulty();
+
+		document.getElementById("dungeonSelector").appendChild(option);
+	}
+}
+
+function jobSelectorInit(){
+
+	var options = ["warrior", "rogue", "mage"];
+
+	for(var index = 0; index < options.length; index++){
+
+		var option = document.createElement("option");
+		option.value = options[index];
+		option.text = options[index];
+
+		document.getElementById("jobSelector").appendChild(option);
+	}
+}
+
+function levelSelectorInit(){
+
+	for(var index = 1; index <= 10; index++){
+
+		var option = document.createElement("option");
+		option.value = index*10;
+		option.text = index*10;
+
+		document.getElementById("levelSelector").appendChild(option);
+	}
+}
+
 function getStepsXYSize(steps){
 
 	var x = 0;
