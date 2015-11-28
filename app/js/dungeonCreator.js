@@ -223,7 +223,7 @@ function getCodigo(){
 			}
 		}
 
-		var idCont=0;
+		var idCont = 0;
 		var rowCont = 0;
 		var dungeon = 'var arraySteps'+idRnd+' = [';
 
@@ -277,20 +277,16 @@ function getCodigo(){
 				 }else{
 				 	dungeon+= gateNone;
 				 }
-
 				 
-
 				dungeon+= "\", "+difficulty+"),";
 				
 				if(rowCont == 9){
 					dungeon+= "\n";
 					rowCont = 0;
 				}else{
-					rowCont++;
+					rowCont--;
 				}
-
 				
-			
 			}
 
 			console.log(""+dungeon);
@@ -303,7 +299,6 @@ function getCodigo(){
 		$("#txtArea").empty();
 
 		$("#resultado").css("display", "inline");
-
 
 		$("#txtArea").append('<textarea class="txtCopy" rows="4" cols="100">'+dungeon+'</textarea>');
 	}else{

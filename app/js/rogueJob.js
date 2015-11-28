@@ -3,7 +3,7 @@
 // Scout
 // M:Blacksmith - F:Scavenger
 
-function Rogue(race, sex){
+function Rogue(race, genre){
 
 	this.typeJob = "rogue";
 	this.jobName = null;
@@ -22,7 +22,7 @@ function Rogue(race, sex){
 		dwarf: "Scavenger"
 	};
 
-	if(sex == "male"){
+	if(genre == "male"){
 		switch(race.getRace()){
 			case "human":
 				this.jobName = this.jobsM.human;

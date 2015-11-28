@@ -2,13 +2,11 @@ function Dwarf(){
 
 	this.race = "dwarf";
 	this.bonusHP = 0;
-	this.bonusStr = 0;
+	this.bonusStr = 2;
 	this.bonusInt = 0;
-	this.bonusDex = 0;
-	this.bonusRes = 0;
+	this.bonusDex = -1;
+	this.bonusRes = 2;
 	this.bonusLuk = 0;
-
-
 
 	this.setBonusHP = setBonusHP;
 	this.setBonusStr = setBonusStr;
@@ -26,6 +24,10 @@ function Dwarf(){
 	this.getBonusRes = getBonusRes;
 	this.getBonusLuk = getBonusLuk;
 
+}
+
+function getRace(){
+	return this.race;
 }
 
 // SETTERS

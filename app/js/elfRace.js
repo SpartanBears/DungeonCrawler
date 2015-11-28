@@ -2,13 +2,11 @@ function Elf(){
 
 	this.race = "elf";
 	this.bonusHP = 0;	
-	this.bonusStr = 0;
-	this.bonusInt = 0;
-	this.bonusDex = 0;
+	this.bonusStr = -1;
+	this.bonusInt = 2;
+	this.bonusDex = 2;
 	this.bonusRes = 0;
 	this.bonusLuk = 0;
-
-
 
 	this.setBonusHP = setBonusHP;
 	this.setBonusStr = setBonusStr;
@@ -26,6 +24,10 @@ function Elf(){
 	this.getBonusRes = getBonusRes;
 	this.getBonusLuk = getBonusLuk;
 
+}
+
+function getRace(){
+	return this.race;
 }
 
 // SETTERS

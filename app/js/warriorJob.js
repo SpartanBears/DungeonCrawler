@@ -3,7 +3,7 @@
 // Fencer
 // Foehammer
 
-function Warrior(race, sex){
+function Warrior(race, genre){
 
 	this.typeJob = "warrior";
 	this.jobName = null;
@@ -22,7 +22,7 @@ function Warrior(race, sex){
 		dwarf: "Foehammer"
 	};
 
-	if(sex == "male"){
+	if(genre == "male"){
 		switch(race.getRace()){
 			case "human":
 				this.jobName = this.jobsM.human;

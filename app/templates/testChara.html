@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="../js/jquery-1.11.3.min.js"></script>
+	<script src="../js/personaje.js"></script>
+	<script src="../js/stats.js"></script>
+	<script src="../js/equipSlot.js"></script>
+	<script src="../js/skill.js"></script>
+	<script src="../js/dwarfRace.js"></script>
+	<script src="../js/mageJob.js"></script>
+	<script src="../js/item.js"></script>
+	<script src="../js/inventory.js"></script>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		var race = new Dwarf();
+		var job = new Mage(race, "male");
+
+		var auxStat = new Stats(1,1,1,1,1);
+		var sword = new Item("espada", auxStat, 100, 1, 1, 1);
+		var twosword = new Item("espada 2manos", auxStat, 100, 1, 2, 1); //2-hands
+		var shield = new Item("escudo", auxStat, 0, 0, 1, 2);
+
+		var helm = new Item("casco", auxStat, 0, 0, 1, 3);
+		var breast = new Item("peto", auxStat, 0, 0, 1, 4);
+		var boot = new Item("botas", auxStat, 0, 0, 1, 5);
+
+		var amulet = new Item("amuleto", auxStat, 0, 0, 1, 6);
+		var ring1 = new Item("anillo_primero", auxStat, 0, 0, 1, 7);
+		var ring2 = new Item("anillo segundo", auxStat, 0, 0, 1, 7);
+
+
+		var chara = new Character("fleto", race, job, "", "");
+
+		chara.equip.equipChar(sword);
+		chara.equip.equipChar(shield);
+
+		chara.equip.equipChar(helm);
+		chara.equip.equipChar(breast);
+		chara.equip.equipChar(boot);
+
+		chara.equip.equipChar(amulet);
+		chara.equip.equipChar(ring1);
+		chara.equip.equipChar(ring2);
+		chara.equip.equipChar(twosword);
+
+	</script>
+
+</body>
+</html>

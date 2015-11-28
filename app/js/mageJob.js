@@ -3,7 +3,7 @@
 // Druid
 // Geomancer
 
-function Mage(race, sex){
+function Mage(race, genre){
 
 	this.typeJob = "mage";
 	this.jobName = null;
@@ -22,7 +22,7 @@ function Mage(race, sex){
 		dwarf: "Geomancer"
 	};
 
-	if(sex == "male"){
+	if(genre == "male"){
 		switch(race.getRace()){
 			case "human":
 				this.jobName = this.jobsM.human;
