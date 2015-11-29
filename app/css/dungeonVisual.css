@@ -21,8 +21,6 @@ td {
 
 #dungeonContainer{
 
-	width: 400px;
-	max-height: 400px;
 	overflow: auto;
 	float: right;
 }
