@@ -251,7 +251,7 @@ var dungeonRepo =[
 	new Dungeon("3", arraySteps3),
 	new Dungeon("50x50", arraySteps4),
 	new Dungeon("5x7", arraySteps583),
-	new Dungeon("Hard 50x50", arraySteps215);,
+	new Dungeon("Hard 50x50", arraySteps215),
 
 ];
 
