@@ -243,7 +243,7 @@ function addSkill(name, dmg, desc){
 
 	// getter y setters de stats
 
-	function setStr(str){
+function setStr(str){
 	this.stats.setStatById(0, str);
 }
 
