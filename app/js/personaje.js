@@ -2,6 +2,7 @@
 function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 
 	// var id = cId;
+	this.hp = 1000;
 	this.nombre = cNombre;
 	this.nivel = 0;
 	this.exp = 0;
@@ -45,6 +46,7 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.setStats = setStats;
 	this.setOrientacion = setOrientacion;
 	this.setgenre = setgenre;
+	this.setHP = setHP;
 	// this.setEquip = setEquip;
 	this.setJobType = setJobType;
 
@@ -64,7 +66,22 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.getgenre = getgenre;
 	// this.getEquip = getEquip;
 	this.getJobType = getJobType;
+	this.getCurrentHP = getCurrentHP;
+	this.getBaseMaxHP = getBaseMaxHP;
+	this.getMaxHP = getMaxHP;
 	
+}
+
+
+
+function getBaseMaxHP(){
+
+}
+
+function getMaxHP(){
+
+	// TODO
+
 }
 
 // equip item
@@ -123,6 +140,10 @@ function addSkill(name, dmg, desc){
 
 
 // SETTERS
+	function setHP(hp){
+		this.hp = hp;
+	}
+
 	function setId(id){
 		this.id = id;
 	}
@@ -176,6 +197,9 @@ function addSkill(name, dmg, desc){
 	}
 
 // GETTERS
+	function getCurrentHP(){
+		this.hp;
+	}
 	function getId(){
 		return this.id;
 	}
