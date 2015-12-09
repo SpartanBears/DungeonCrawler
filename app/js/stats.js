@@ -1,8 +1,8 @@
-function Stats(str, inte, dex, res, luk){
+function Stats(str, agi, inte, res, luk){
 	this.stats = {
 		fuerza: str,
+		agilidad: agi,
 		inteligencia: inte,
-		destreza: dex,
 		resistencia: res,
 		suerte: luk
 	};
@@ -21,19 +21,19 @@ function setStats(newStats){
 function setStatById(id, newStat){
 	switch(id){
 		case '0':
-			this.stats.fuerza  ;
+			this.stats.fuerza = newStat ;
 		break;
 		case '1':
-			this.stats.inteligencia  ;
+			this.stats.agilidad = newStat ;
 		break;
 		case '2':
-			this.stats.destreza  ;
+			this.stats.inteligencia = newStat ;
 		break;
 		case '3':
-			this.stats.resistencia  ;
+			this.stats.resistencia  = newStat ;
 		break;
 		case '4':
-			this.stats.suerte  ;
+			this.stats.suerte = newStat ;
 		break;
 	}
 }
@@ -48,10 +48,10 @@ function getStatById(id){
 			return this.stats.fuerza;
 		break;
 		case '1':
-			return this.stats.inteligencia;
+			return this.stats.agilidad;
 		break;
 		case '2':
-			return this.stats.destreza;
+			return this.stats.inteligencia;
 		break;
 		case '3':
 			return this.stats.resistencia;

@@ -14,11 +14,6 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	// var edad = cEdad;
 	this.skills = new Array();
 
-	/*stats:
-	fuerza, inteligencia, destreza, resistencia, suerte
-
-	orientacion y genre son arrays
-	*/
 	this.stats = new Stats(0, 0, 0, 0, 0);
 	this.equip = new EquipSlots();
 
@@ -26,7 +21,7 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.genre = cgenre;
 	
 	/*stats:
-	fuerza, inteligencia, destreza, resistencia, suerte
+	fuerza, agi, int, vit, suerte
 
 	orientacion y genre son arrays
 	*/
@@ -74,6 +69,7 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 
 
 
+
 function getBaseMaxHP(){
 
 }
@@ -89,47 +85,33 @@ function getMaxHP(){
 // 
 
 function getSingleStat(stt){
-	switch(stt){
-		case 0:
-			return skills[0];
-		break;
-		case 1:
-			return skills[1];
-		break;
-		case 2:
-			return skills[2];
-		break;
-		case 3:
-			return skills[3];
-		break;
-		case 4:
-			return skills[4];
-		break;
-	}
+	return this.stats.getStatById(stt);
 }
 
 function getPrimaryStat(){
 	switch(job.getTypeJob()){
 		case "warrior":
-			return stats.fuerza;
+			return this.stats.setStatById(0);
 		break;
 
 		case "mage":
-			return stats.inteligencia;
+			return this.stats.setStatById(2);
 		break;
 
 		case "rogue":
-			return stats.destreza;
+			return this.stats.setStatById(1);
 		break;
 	}
 }
 
-function addStat(nStr, nInt, nDes, nRes, nLuk){
-	skills[0] += nStr;
-	skills[1] += nInt;
-	skills[2] += nDes;
-	skills[3] += nRes;
-	skills[4] += nLuk;
+
+
+function addStat(nStr, nAgi, nInt, nVit, nLuk){
+	this.stats[0] += nStr;
+	this.stats[1] += nAgi;
+	this.stats[2] += nInt;
+	this.stats[3] += nVit;
+	this.stats[4] += nLuk;
 }
 
 function addSkill(name, dmg, desc){
@@ -251,3 +233,46 @@ function addSkill(name, dmg, desc){
 	function getJobType(){
 		return this.jobType;
 	}
+
+	// getter y setters de stats
+
+	function setStr(str){
+	this.stats.setStatById(0, str);
+}
+
+function setAgi(agi){
+	this.stats.setStatById(1, agi);
+}
+
+function setInt(inte){
+	this.stats.setStatById(2, inte);
+}
+
+function setVit(vit){
+	this.stats.setStatById(3, vit);
+}
+
+function setLuk(luk){
+	this.stats.setStatById(4, luk);
+}
+
+
+function getStr(){
+	return this.stats.getStatById(0);
+}
+
+function getAgi(){
+	return this.stats.getStatById(1);
+}
+
+function getInt(){
+	return this.stats.getStatById(2);
+}
+
+function getVit(){
+	return this.stats.getStatById(3);
+}
+
+function getLuk(){
+	return this.stats.getStatById(4);
+}
