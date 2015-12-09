@@ -187,7 +187,7 @@ function addSkill(name, dmg, desc){
 
 // GETTERS
 	function getCurrentHP(){
-		this.hp;
+		return this.hp;
 	}
 	function getId(){
 		return this.id;

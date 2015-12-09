@@ -83,7 +83,7 @@ function receiveDamage(damage){
 
 	console.log(this.getCharacter().getNombre() + " recieves " + damage);
 
-	this.getCharacter().setHp(this.getCharacter().getCurrentHp() - damage);
+	this.getCharacter().setHp(this.getCharacter().getCurrentHP() - damage);
 
 }
 
@@ -104,7 +104,7 @@ function isAlive(){
 
 	/*checks whether the character is alive or not*/ 
 
-	if(this.getCharacter().getCurrentHp() <= 0){
+	if(this.getCharacter().getCurrentHP() <= 0){
 
 		alive = false;
 	}
