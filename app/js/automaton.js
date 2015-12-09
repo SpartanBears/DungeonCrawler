@@ -16,9 +16,11 @@ function Automaton(character){
 	this.move = move;
 	this.fight = fight;
 	this.loot = loot;
+	this.dealDamage = dealDamage;
 	this.receiveDamage = receiveDamage;
 	this.addStatusAilment = addStatusAilment;
 	this.checkStatusAilments = checkStatusAilments;
+	this.isAlive = isAlive;
 	this.changeDirection = changeDirection;
 
 	this.setCurrentStep = setCurrentStep;
@@ -44,7 +46,7 @@ function initAutomaton(){
 
 function fight(enemy){
 
-	switch(enemy.getType()){
+	switch(enemy.getCharacter().getType()){
 
 		case 'player':
 
@@ -60,7 +62,9 @@ function fight(enemy){
 
 		case 'monster':
 
-			console.log(this.getCharacter().getName() + " VS " + enemy.getName());
+			console.log(this.getCharacter().getName() + " VS " + enemy.getCharacter().getName());
+
+			new Combat(this, enemy).startCombat();
 
 		break;
 	}
@@ -68,15 +72,18 @@ function fight(enemy){
 
 function dealDamage(){
 
-	var damage = 0;
+	var damage = this.getCharacter().getPrimaryStat();
+
+	console.log(this.getCharacter().getNombre() + "attacks with " + damage);
 
 	return damage;
 }
 
 function receiveDamage(damage){
 
-	/*reduce damage (armor, stats, job, perks, skills, deity, etc)
-	then apply*/
+	console.log(this.getCharacter().getNombre() + " recieves " + damage);
+
+	this.getCharacter().setHp(this.getCharacter().getCurrentHp() - damage);
 
 }
 
@@ -88,6 +95,21 @@ function addStatusAilment(ailment){
 function checkStatusAilments(){
 
 	/*checks ailments duration and applies effects accordingly*/
+}
+
+
+function isAlive(){
+
+	var alive = true;
+
+	/*checks whether the character is alive or not*/ 
+
+	if(this.getCharacter().getCurrentHp() <= 0){
+
+		alive = false;
+	}
+
+	return alive;
 }
 
 function loot(items){

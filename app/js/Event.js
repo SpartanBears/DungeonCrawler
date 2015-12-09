@@ -1,9 +1,9 @@
 //Contains monster objects
 var monsters = new Array();
-monsters.push(new Character('monstruitoA', 'warrior', 50, 'monster'));
-monsters.push(new Character('monstruitoB', 'warrior', 50, 'monster'));
-monsters.push(new Character('monstruitoC', 'warrior', 50, 'monster'));
-monsters.push(new Character('monstruitoD', 'warrior', 50, 'monster'));
+monsters.push(new Automaton(new Character('monstruitoA', 'warrior', 50, 'monster')));
+monsters.push(new Automaton(new Character('monstruitoB', 'warrior', 50, 'monster')));
+monsters.push(new Automaton(new Character('monstruitoC', 'warrior', 50, 'monster')));
+monsters.push(new Automaton(new Character('monstruitoD', 'warrior', 50, 'monster')));
 
 //Contains shrine event objects
 var shrines = new Array();

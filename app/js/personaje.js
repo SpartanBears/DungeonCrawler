@@ -82,8 +82,15 @@ function getMaxHP(){
 
 // equip item
 	
-// 
+//
 
+/*
+0 STR
+1 AGI
+2 INT
+3 VIT
+4 LCK
+*/
 function getSingleStat(stt){
 	return this.stats.getStatById(stt);
 }
