@@ -21,7 +21,7 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.genre = cgenre;
 	
 	/*stats:
-	fuerza, agi, int, vit, suerte
+	str, agi, int, vit, luk
 
 	orientacion y genre son arrays
 	*/
@@ -35,7 +35,7 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.setNivel = setNivel;
 	this.setExp = setExp;
 	this.setRaza = setRaza;
-	this.setClase = setClase;
+	this.setJob = setJob;
 	this.setEdad = setEdad;
 	this.setSkills = setSkills;
 	this.setStats = setStats;
@@ -53,7 +53,7 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.getNivel = getNivel;
 	this.getExp = getExp;
 	this.getRaza = getRaza;
-	this.getClase = getClase;
+	this.getJob = getJob;
 	this.getEdad = getEdad;
 	this.getSkills = getSkills;
 	this.getStats = getStats;
@@ -151,7 +151,7 @@ function addSkill(name, dmg, desc){
 		this.raza = race;
 	}
 
-	function setClase(job){
+	function setJob(job){
 		this.job = job;
 	}
 
@@ -227,7 +227,7 @@ function addSkill(name, dmg, desc){
 		return this.raza.race;
 	}
 
-	function getClase(){
+	function getJob(){
 		return this.job;
 	}
 

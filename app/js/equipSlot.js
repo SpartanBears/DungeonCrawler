@@ -191,7 +191,7 @@ function EquipSlots(){
 			case 1:
 
 				// console.log(item.getHanded());
-				console.log(this.getEquip());
+				// console.log(this.getEquip());
 
 				this.getEquip()["handR"] = item;
 				// 2 handed
