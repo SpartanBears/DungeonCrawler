@@ -1,18 +1,18 @@
 function Orc(){
 
 	this.race = "orc";
-	this.bonusHP = 0;
+	this.bonusHP = 500;
 	this.bonusStr = 2;
 	this.bonusInt = -1;
 	this.bonusDex = 0;
-	this.bonusRes = 2;
+	this.bonusVit = 2;
 	this.bonusLuk = 0;
 
 	this.setBonusHP = setBonusHP;
 	this.setBonusStr = setBonusStr;
 	this.setBonusInt = setBonusInt;
 	this.setBonusDex = setBonusDex;
-	this.setBonusRes = setBonusRes;
+	this.setBonusVit = setBonusVit;
 	this.setBonusLuk = setBonusLuk;
 
 	this.getRace = getRace;
@@ -21,7 +21,7 @@ function Orc(){
 	this.getBonusStr = getBonusStr;
 	this.getBonusInt = getBonusInt;
 	this.getBonusDex = getBonusDex;
-	this.getBonusRes = getBonusRes;
+	this.getBonusVit = getBonusVit;
 	this.getBonusLuk = getBonusLuk;
 
 }
@@ -47,8 +47,8 @@ function setBonusDex(bns){
 	this.bonusDex = bns;
 }
 
-function setBonusRes(bns){
-	this.bonusRes = bns;
+function setBonusVit(bns){
+	this.bonusVit = bns;
 }
 
 function setBonusLuk(bns){
@@ -56,26 +56,26 @@ function setBonusLuk(bns){
 }
 
 // GETTERS
-function getBonusHP(bns){
+function getBonusHP(){
 	return this.bonusHP;
 }
 
-function getBonusStr(bns){
+function getBonusStr(){
 	return this.bonusStr;
 }
 
-function getBonusInt(bns){
+function getBonusInt(){
 	return this.bonusInt;
 }
 
-function getBonusDex(bns){
+function getBonusDex(){
 	return this.bonusDex;
 }
 
-function getBonusRes(bns){
-	return this.bonusRes;
+function getBonusVit(){
+	return this.bonusVit;
 }
 
-function getBonusLuk(bns){
+function getBonusLuk(){
 	return this.bonusLuk;
 }

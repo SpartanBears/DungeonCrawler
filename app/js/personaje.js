@@ -7,8 +7,8 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.nivel = 0;
 	this.exp = 0;
 	this.raza = cRaza;
-	this.job = cClase.getJobName();
-	this.jobType = cClase;
+	this.job = cClase.getJobName(); // es la "especialidad" del pj, dependiendo del job y el sexo (ej. knight o duelist)
+	this.jobType = cClase; // es el objeto que contiene el job del pj
 	this.inventory = new Inventory();
 
 	// var edad = cEdad;
@@ -71,18 +71,19 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 
 
 function getBaseMaxHP(){
-
+	return this.hp;
 }
 
 function getMaxHP(){
 
-	// TODO
+	var hpTemp = 0;
 
+	hpTemp = this.getBaseMaxHP();
+	hpTemp = hpTemp * ( 1 + (( this.getVit() + this.getRaza().getBonusHP() ) / 100 ) );
+	hpTemp = hpTemp + this.getRaza().getBonusHP();
+
+	return hpTemp;
 }
-
-// equip item
-	
-//
 
 /*
 	0 STR
@@ -91,6 +92,7 @@ function getMaxHP(){
 	3 VIT
 	4 LCK
 */
+
 function getSingleStat(stt){
 	return this.stats.getStatById(stt);
 }
@@ -100,18 +102,14 @@ function getPrimaryStat(){
 		case "warrior":
 			return this.stats.setStatById(0);
 		break;
-
-		case "mage":
-			return this.stats.setStatById(2);
-		break;
-
 		case "rogue":
 			return this.stats.setStatById(1);
 		break;
+		case "mage":
+			return this.stats.setStatById(2);
+		break;
 	}
 }
-
-
 
 function addStat(nStr, nAgi, nInt, nVit, nLuk){
 	this.stats.setStatById(0, nStr);
@@ -124,7 +122,7 @@ function addStat(nStr, nAgi, nInt, nVit, nLuk){
 function addSkill(name, dmg, desc){
 	var newSkill =  new Skill(name, dmg, desc);
 	
-	this.skills += newSkill;
+	this.skills.push(newSkill);
 }
 
 
@@ -185,6 +183,26 @@ function addSkill(name, dmg, desc){
 		this.jobType = clase;
 	}
 
+	function setStr(str){
+		this.stats.setStatById(0, str);
+	}
+
+	function setAgi(agi){
+		this.stats.setStatById(1, agi);
+	}
+
+	function setInt(inte){
+		this.stats.setStatById(2, inte);
+	}
+
+	function setVit(vit){
+		this.stats.setStatById(3, vit);
+	}
+
+	function setLuk(luk){
+		this.stats.setStatById(4, luk);
+	}
+
 // GETTERS
 	function getCurrentHP(){
 		return this.hp;
@@ -243,43 +261,22 @@ function addSkill(name, dmg, desc){
 
 	// getter y setters de stats
 
-function setStr(str){
-	this.stats.setStatById(0, str);
-}
+	function getStr(){
+		return this.stats.getStatById(0);
+	}
 
-function setAgi(agi){
-	this.stats.setStatById(1, agi);
-}
+	function getAgi(){
+		return this.stats.getStatById(1);
+	}
 
-function setInt(inte){
-	this.stats.setStatById(2, inte);
-}
+	function getInt(){
+		return this.stats.getStatById(2);
+	}
 
-function setVit(vit){
-	this.stats.setStatById(3, vit);
-}
+	function getVit(){
+		return this.stats.getStatById(3);
+	}
 
-function setLuk(luk){
-	this.stats.setStatById(4, luk);
-}
-
-
-function getStr(){
-	return this.stats.getStatById(0);
-}
-
-function getAgi(){
-	return this.stats.getStatById(1);
-}
-
-function getInt(){
-	return this.stats.getStatById(2);
-}
-
-function getVit(){
-	return this.stats.getStatById(3);
-}
-
-function getLuk(){
-	return this.stats.getStatById(4);
-}
+	function getLuk(){
+		return this.stats.getStatById(4);
+	}
