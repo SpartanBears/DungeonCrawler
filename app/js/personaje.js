@@ -85,11 +85,11 @@ function getMaxHP(){
 //
 
 /*
-0 STR
-1 AGI
-2 INT
-3 VIT
-4 LCK
+	0 STR
+	1 AGI
+	2 INT
+	3 VIT
+	4 LCK
 */
 function getSingleStat(stt){
 	return this.stats.getStatById(stt);
@@ -114,11 +114,11 @@ function getPrimaryStat(){
 
 
 function addStat(nStr, nAgi, nInt, nVit, nLuk){
-	this.stats[0] += nStr;
-	this.stats[1] += nAgi;
-	this.stats[2] += nInt;
-	this.stats[3] += nVit;
-	this.stats[4] += nLuk;
+	this.stats.setStatById(0, nStr);
+	this.stats.setStatById(1, nAgi);
+	this.stats.setStatById(2, nInt);
+	this.stats.setStatById(3, nVit);
+	this.stats.setStatById(4, nLuk);
 }
 
 function addSkill(name, dmg, desc){
