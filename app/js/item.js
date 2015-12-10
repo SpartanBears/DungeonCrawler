@@ -1,5 +1,6 @@
-function Item(itemName, stats, dmg, atsp, hands, type){
- 
+function Item(id, itemName, stats, dmg, atsp, hands, type){
+ 	
+ 	this.id = id;
  	this.itemName = itemName;
 	this.dmg = dmg;
 	this.atspBonus = atsp;
@@ -13,13 +14,15 @@ function Item(itemName, stats, dmg, atsp, hands, type){
 
 // TBI 
 // var layouts = 1;
-
+	
+	this.setId = setId;
 	this.setItemName = setItemName;
 	this.setDmg = setDmg;
 	this.setAtsp = setAtsp;
 	this.setHanded = setHanded;
 	this.setType = setType;
 
+	this.getId = getId;
 	this.getItemName = getItemName;
 	this.getDmg = getDmg;
 	this.getAtsp = getAtsp;
@@ -29,6 +32,9 @@ function Item(itemName, stats, dmg, atsp, hands, type){
 }
 
 // SETTERS
+function setId(id){
+	this.id = id;
+}
 function setItemName(nm){
 	this.itemName = nm;
 }
@@ -55,6 +61,10 @@ function setStats(stt){
 
 
 // GETTERS
+function getId(){
+	return this.id;
+}
+
 function getStats(){
 	return this.stats;
 }
