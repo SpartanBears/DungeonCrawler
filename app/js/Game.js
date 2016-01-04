@@ -52,7 +52,7 @@ function autoPlayVisual(dungeonIndex, job, level, speed){
 		var character = new Character("test", race, new Warrior(race, 'male'), '', '', 'player');
 		character.setNivel(level);
 		character.setStats(new Stats(level, level, level, level, level));
-		console.log(character.getStats());
+		console.log(character.getJobType().getTypeJob());
 
 		var d = dungeonRepo[dungeonIndex];
 		d.uncheckAll();

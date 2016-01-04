@@ -14,6 +14,7 @@ function EquipSlots(){
 	this.equipChar = equipChar;
 	this.wearEquip = wearEquip;
 	this.canEquip = canEquip;
+	this.confirmarEquip = confirmarEquip;
 
 	this.setEquip = setEquip;
 
@@ -46,8 +47,12 @@ function EquipSlots(){
 
 						}else{
 
-							// confirmacion de equipar
-							out = item.getItemName()+' no se ha podido equipar!';
+							if(this.confirmarEquip()){
+								out = this.wearEquip(1, item);
+							}else{
+								out = item.getItemName()+' no se ha podido equipado!';
+							}
+							
 						}
 			// 2 handed
 				}else if(item.getHanded() == 2){
@@ -56,8 +61,11 @@ function EquipSlots(){
 						out = this.wearEquip(1, item);
 
 					}else{
-						// confirmacion de equipar
-						out = item.getItemName()+' no se ha podido equipar!';
+						if(this.confirmarEquip()){
+							out = this.wearEquip(1, item);
+						}else{
+							out = item.getItemName()+' no se ha equipado!';
+						}
 					}
 				}else{
 					out = item.getItemName()+' no se ha podido equipar!';
@@ -70,6 +78,12 @@ function EquipSlots(){
 
 				if(this.canEquip(2)){
 					out = this.wearEquip(2, item);
+				}else{
+					if(this.confirmarEquip()){
+						out = this.wearEquip(2, item);
+					}else{
+						out = item.getItemName()+' no se ha equipado!';
+					}
 				}
 
 				console.log(out);
@@ -80,6 +94,12 @@ function EquipSlots(){
 
 				if(this.canEquip(3)){
 					out = this.wearEquip(3, item);
+				}else{
+					if(this.confirmarEquip()){
+						out = this.wearEquip(3, item);
+					}else{
+						out = item.getItemName()+' no se ha equipado!';
+					}
 				}
 
 				console.log(out);
@@ -89,6 +109,12 @@ function EquipSlots(){
 			case '4':
 				if(this.canEquip(4)){
 					out = this.wearEquip(4, item);
+				}else{
+					if(this.confirmarEquip()){
+						out = this.wearEquip(4, item);
+					}else{
+						out = item.getItemName()+' no se ha equipado!';
+					}
 				}
 
 				console.log(out);
@@ -98,6 +124,12 @@ function EquipSlots(){
 			case '5':
 				if(this.canEquip(5)){
 					out = this.wearEquip(5, item);
+				}else{
+					if(this.confirmarEquip()){
+						out = this.wearEquip(5, item);
+					}else{
+						out = item.getItemName()+' no se ha equipado!';
+					}
 				}
 
 				console.log(out);
@@ -107,6 +139,12 @@ function EquipSlots(){
 			case '6':
 				if(this.canEquip(6)){
 					out = this.wearEquip(6, item);
+				}else{
+					if(this.confirmarEquip()){
+						out = this.wearEquip(6, item);
+					}else{
+						out = item.getItemName()+' no se ha equipado!';
+					}
 				}
 
 				console.log(out);
@@ -125,7 +163,11 @@ function EquipSlots(){
 
 				}else{
 
-					out = item.getItemName()+' no ha sido equipado!';
+					if(this.confirmarEquip()){
+						out = this.wearEquip(7, item);
+					}else{
+						out = item.getItemName()+' no se ha equipado!';
+					}
 
 				}
 
@@ -139,8 +181,6 @@ function EquipSlots(){
 				console.log(out);
 				return out;
 			break;
-
-
 		}
 
 	}
@@ -151,7 +191,7 @@ function EquipSlots(){
 			case 1:
 
 				// console.log(item.getHanded());
-				console.log(this.getEquip());
+				// console.log(this.getEquip());
 
 				this.getEquip()["handR"] = item;
 				// 2 handed
@@ -215,6 +255,14 @@ function EquipSlots(){
 		}
 
 		return out;
+	}
+
+	function confirmarEquip(){
+		var flag = false;
+
+		// TODO
+
+		return flag;
 	}
 
 

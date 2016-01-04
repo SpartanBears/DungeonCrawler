@@ -278,8 +278,6 @@ function solveObstacle(step){
 		solved = true;
 	}
 
-	console.log(solved);
-
 	return solved;
 }
 
