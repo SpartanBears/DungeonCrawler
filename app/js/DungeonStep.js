@@ -95,7 +95,7 @@ function isWalkable(character){
 
 		case 'pit':
 
-			if(character.getJob() == 'rogue'){
+			if(character.getJobType() == 'rogue'){
 
 				walkable = true;
 			}
@@ -104,7 +104,7 @@ function isWalkable(character){
 
 		case 'force_field':
 
-			if(character.getJob() == 'mage'){
+			if(character.getJobType() == 'mage'){
 
 				walkable = true;
 			}
@@ -113,7 +113,7 @@ function isWalkable(character){
 
 		case 'barred_door':
 
-			if(character.getJob() == 'warrior'){
+			if(character.getJobType() == 'warrior'){
 
 				walkable = true;
 			}

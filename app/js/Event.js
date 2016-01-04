@@ -1,9 +1,11 @@
 //Contains monster objects
+
+var race = new Orc();
 var monsters = new Array();
-monsters.push(new Automaton(new Character('monstruitoA', 'warrior', 50, 'monster')));
-monsters.push(new Automaton(new Character('monstruitoB', 'warrior', 50, 'monster')));
-monsters.push(new Automaton(new Character('monstruitoC', 'warrior', 50, 'monster')));
-monsters.push(new Automaton(new Character('monstruitoD', 'warrior', 50, 'monster')));
+monsters.push(new Automaton(new Character('monstruitoA', race, new Warrior(race, 'male'), '', '', 'monster')));
+monsters.push(new Automaton(new Character('monstruitoB', race, new Warrior(race, 'male'), '', '', 'monster')));
+monsters.push(new Automaton(new Character('monstruitoC', race, new Warrior(race, 'male'), '', '', 'monster')));
+monsters.push(new Automaton(new Character('monstruitoD', race, new Warrior(race, 'male'), '', '', 'monster')));
 
 //Contains shrine event objects
 var shrines = new Array();

@@ -1,5 +1,5 @@
 
-function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
+function Character(cNombre, cRaza, cClase, cOrientacion, cgenre, type){
 
 	// var id = cId;
 	this.hp = 1000;
@@ -7,8 +7,8 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.nivel = 0;
 	this.exp = 0;
 	this.raza = cRaza;
-	this.job = cClase.getJobName();
 	this.jobType = cClase;
+	this.job = cClase.getJobName();
 	this.inventory = new Inventory();
 
 	// var edad = cEdad;
@@ -19,6 +19,8 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 
 	this.orientacion = cOrientacion;
 	this.genre = cgenre;
+
+	this.type = type;
 	
 	/*stats:
 	fuerza, agi, int, vit, suerte
@@ -44,6 +46,7 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.setHP = setHP;
 	// this.setEquip = setEquip;
 	this.setJobType = setJobType;
+	this.setType = setType;
 
 	// getters
 	this.getSingleStat = getSingleStat;
@@ -59,11 +62,19 @@ function Character(cNombre, cRaza, cClase, cOrientacion, cgenre){
 	this.getStats = getStats;
 	this.getOrientacion = getOrientacion;
 	this.getgenre = getgenre;
+	this.getPrimaryStat = getPrimaryStat;
 	// this.getEquip = getEquip;
 	this.getJobType = getJobType;
+	this.getType = getType;
 	this.getCurrentHP = getCurrentHP;
 	this.getBaseMaxHP = getBaseMaxHP;
 	this.getMaxHP = getMaxHP;
+
+	this.getStr = getStr;
+	this.getAgi = getAgi;
+	this.getInt = getInt;
+	this.getVit = getVit;
+	this.getLuk = getLuk;
 	
 }
 
@@ -96,19 +107,25 @@ function getSingleStat(stt){
 }
 
 function getPrimaryStat(){
-	switch(job.getTypeJob()){
-		case "warrior":
-			return this.stats.setStatById(0);
+
+	var jobType = this.getJobType().getTypeJob();
+	var statIndex;
+
+	switch(jobType){
+		case 'warrior':
+			statIndex = 0;
 		break;
 
-		case "mage":
-			return this.stats.setStatById(2);
+		case 'mage':
+			statIndex = 2;
 		break;
 
-		case "rogue":
-			return this.stats.setStatById(1);
+		case 'rogue':
+			statIndex = 1;
 		break;
 	}
+
+	return this.getStats().getStatById(statIndex);
 }
 
 
@@ -185,6 +202,11 @@ function addSkill(name, dmg, desc){
 		this.jobType = clase;
 	}
 
+	function setType(type){
+
+		this.type = type;
+	}
+
 // GETTERS
 	function getCurrentHP(){
 		return this.hp;
@@ -239,6 +261,11 @@ function addSkill(name, dmg, desc){
 
 	function getJobType(){
 		return this.jobType;
+	}
+
+	function getType(){
+
+		return this.type;
 	}
 
 	// getter y setters de stats

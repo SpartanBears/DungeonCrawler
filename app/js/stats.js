@@ -20,19 +20,19 @@ function setStats(newStats){
 
 function setStatById(id, newStat){
 	switch(id){
-		case '0':
+		case 0:
 			this.stats.fuerza = newStat ;
 		break;
-		case '1':
+		case 1:
 			this.stats.agilidad = newStat ;
 		break;
-		case '2':
+		case 2:
 			this.stats.inteligencia = newStat ;
 		break;
-		case '3':
+		case 3:
 			this.stats.resistencia  = newStat ;
 		break;
-		case '4':
+		case 4:
 			this.stats.suerte = newStat ;
 		break;
 	}
@@ -44,19 +44,19 @@ function getStats(){
 
 function getStatById(id){
 	switch(id){
-		case '0':
+		case 0:
 			return this.stats.fuerza;
 		break;
-		case '1':
+		case 1:
 			return this.stats.agilidad;
 		break;
-		case '2':
+		case 2:
 			return this.stats.inteligencia;
 		break;
-		case '3':
+		case 3:
 			return this.stats.resistencia;
 		break;
-		case '4':
+		case 4:
 			return this.stats.suerte;
 		break;
 	}

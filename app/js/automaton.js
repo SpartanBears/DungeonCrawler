@@ -62,7 +62,7 @@ function fight(enemy){
 
 		case 'monster':
 
-			console.log(this.getCharacter().getName() + " VS " + enemy.getCharacter().getName());
+			console.log(this.getCharacter().getNombre() + " VS " + enemy.getCharacter().getNombre());
 
 			new Combat(this, enemy).startCombat();
 
@@ -83,7 +83,7 @@ function receiveDamage(damage){
 
 	console.log(this.getCharacter().getNombre() + " recieves " + damage);
 
-	this.getCharacter().setHp(this.getCharacter().getCurrentHP() - damage);
+	this.getCharacter().setHP(this.getCharacter().getCurrentHP() - damage);
 
 }
 
@@ -277,6 +277,8 @@ function solveObstacle(step){
 
 		solved = true;
 	}
+
+	console.log(solved);
 
 	return solved;
 }
@@ -494,7 +496,7 @@ function setDirection(direction){
 	this.direction = direction;
 }
 
-function getName(){
+function getNombre(){
 
 	return this.name;
 }

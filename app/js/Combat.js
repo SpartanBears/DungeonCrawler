@@ -6,6 +6,8 @@ function Combat(fighterA, fighterB){
 	//Methods
 	this.startCombat = startCombat;
 	this.getAttackSpeedDifference = getAttackSpeedDifference;
+	this.getFastestFighter = getFastestFighter;
+	this.getSlowestFighter = getSlowestFighter;
 
 	this.setFighterA = setFighterA;
 	this.setFighterB = setFighterB;

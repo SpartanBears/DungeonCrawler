@@ -36,43 +36,7 @@ window.onload = function(){
 	levelSelectorInit();
 	speedSelectorInit();
 
-	
 }
-
-/*TESTING - NOT FINAL CODE*/
-function Character(name, job, primaryStat, type){
-
-	this.name = name;
-	this.job = job;
-	this.primaryStat = primaryStat;
-	this.type = type;
-
-	this.getJob = getJob;
-	this.getPrimaryStat = getPrimaryStat;
-	this.getType = getType;
-	this.getName = getName;
-}
-
-function getJob(){
-
-	return this.job;
-}
-
-function getPrimaryStat(){
-
-	return this.primaryStat;
-}
-
-function getType(){
-
-	return this.type;
-}
-
-function getName(){
-
-	return this.name;
-}
-/*TESTING - NOT FINAL CODE*/
 
 function autoPlayVisual(dungeonIndex, job, level, speed){
 
@@ -83,7 +47,12 @@ function autoPlayVisual(dungeonIndex, job, level, speed){
 
 	}else{
 
-		var character = new Character("test", job, level, 'player');
+		var race = new Dwarf();
+
+		var character = new Character("test", race, new Warrior(race, 'male'), '', '', 'player');
+		character.setNivel(level);
+		character.setStats(new Stats(level, level, level, level, level));
+		console.log(character.getStats());
 
 		var d = dungeonRepo[dungeonIndex];
 		d.uncheckAll();
@@ -107,7 +76,7 @@ function autoPlayVisual(dungeonIndex, job, level, speed){
 
 			updateCharacterPosition(auto.getDirection(), auto.getCurrentStep(), auto.getPreviousStep());
 
-			auto.getCurrentStep().stepEvent(auto, 'battle', 50);
+			//auto.getCurrentStep().stepEvent(auto, 'battle', 50);
 
 			if(auto.getCurrentStep().getGateway() == 'exit'){
 
